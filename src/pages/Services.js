@@ -84,7 +84,7 @@ const Services = () => {
       <section className="services-section">
         <div className="container">
           <div className="section-header">
-            <span className="section-tag">What We Offer</span>
+            
             <h2 className="section-title">Comprehensive Chemical Services</h2>
             <p className="section-description">
               Industry-leading solutions from consultation to supply, backed by decades of expertise and innovation.

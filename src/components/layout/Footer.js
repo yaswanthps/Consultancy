@@ -35,9 +35,8 @@ const Footer = () => {
           <h3 className="footer-title">Quick Links</h3>
           <div className="footer-links">
             <Link to="/about" className="footer-link">About Us</Link>
-            <Link to="/services" className="footer-link">Our Services</Link>
+            {/* <Link to="/services" className="footer-link">Our Services</Link> */}
             <Link to="/products" className="footer-link">Products</Link>
-            <Link to="/blog" className="footer-link">Insights</Link>
             <Link to="/contact" className="footer-link">Contact</Link>
           </div>
         </div>
@@ -58,15 +57,17 @@ const Footer = () => {
           <div className="footer-contact">
             <div className="contact-item">
               <FiMapPin className="contact-icon" />
-              <span>123 Green Technology Blvd<br />Eco City, EC 12345</span>
+              <span> Plot No.18,19, Moraji Desai Nagar,
+          Chettipalayam, Gandhi Nagar Post,
+          Tiruppur – 641603</span>
             </div>
             <div className="contact-item">
               <FiPhone className="contact-icon" />
-              <span>+1 (555) 123-4567</span>
+              <span>+91 93444 53519</span>
             </div>
             <div className="contact-item">
               <FiMail className="contact-icon" />
-              <span>info@surfauxdyechem.com</span>
+              <span>erca@surfauxdye.com</span>
             </div>
           </div>
         </div>

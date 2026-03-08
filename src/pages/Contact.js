@@ -24,7 +24,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate form submission
     setTimeout(() => {
       setSubmitMessage('Thank you for your message! We\'ll get back to you within 24 hours.');
@@ -43,27 +43,15 @@ const Contact = () => {
     <div className="contact">
       {/* Hero Section */}
       <HeroSection
+        className="services-hero"
         subtitle="Let's Talk"
         title="Get in "
         titleHighlight="Touch With Us"
         description="Ready to transform your business with sustainable chemistry solutions? We'd love to hear from you and discuss how we can help achieve your environmental and production goals."
         primaryButtonText="Send Message"
         primaryButtonLink="/contact"
-        secondaryButtonText="View Services"
-        secondaryButtonLink="/services"
-        backgroundImage="/images/backgrounds/molecular-tech.png"
-        stats={[
-          {
-            label: "Response Time",
-            value: "< 24hrs",
-            avatars: ["⚡", "✅", "💬"]
-          },
-          {
-            label: "Satisfaction",
-            value: "98%",
-            avatars: ["⭐", "😊", "🎯"]
-          }
-        ]}
+      /* secondaryButtonText="View Services" */
+      /* secondaryButtonLink="/services" */
       />
 
       {/* Contact Content */}
@@ -77,23 +65,23 @@ const Contact = () => {
               </div>
               <h3>Come to See Us</h3>
               <p>
-                Plot No.18,19, Moraji Desai Nagar,<br/>
-                Chettipalayam, Gandhi Nagar Post,<br/>
+                Plot No.18,19, Moraji Desai Nagar,<br />
+                Chettipalayam, Gandhi Nagar Post,<br />
                 Tirupur - 641603
               </p>
             </div>
-            
+
             <div className="info-card">
               <div className="info-icon">
                 <FiPhone />
               </div>
               <h3>Quick Contact</h3>
               <p>
-                Ph: +91 93444 53519<br/>
+                Ph: +91 93444 53519<br />
                 Email: erca@sufaux.com
               </p>
             </div>
-            
+
             <div className="info-card">
               <div className="info-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -103,8 +91,8 @@ const Contact = () => {
               </div>
               <h3>Office Schedule</h3>
               <p>
-                Monday to Saturday: 09:00am to 18:00pm<br/>
-                Sunday: <span style={{color: 'var(--accent-green)'}}>Closed</span>
+                Monday to Saturday: 09:00am to 18:00pm<br />
+                Sunday: <span style={{ color: 'var(--accent-green)' }}>Closed</span>
               </p>
             </div>
           </div>
@@ -175,9 +163,9 @@ const Contact = () => {
                   ></textarea>
                 </div>
 
-                <button 
-                  type="submit" 
-                  className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                <button
+                  type="submit"
+                  className={`btn btn-primary submit-btn ${isSubmitting ? 'submitting' : ''}`}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -205,19 +193,14 @@ const Contact = () => {
         <div className="container">
           <h2 className="section-title">Find Us</h2>
           <div className="map-placeholder">
-            <img 
-              src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=1200&h=400&fit=crop" 
-              alt="Office Location Map"
-              className="map-image"
-            />
             <div className="map-overlay">
               <div className="map-info">
                 <h3> SurfauxDyeChemHeadquarters</h3>
                 <p>
-Plot No.18,19, Moraji Desai Nagar,
-Chettipalayam, Gandhi Nagar Post,
-Tirupur - 641603
-</p>
+                  Plot No.18,19, Moraji Desai Nagar,
+                  Chettipalayam, Gandhi Nagar Post,
+                  Tirupur - 641603
+                </p>
               </div>
             </div>
           </div>

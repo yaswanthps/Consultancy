@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiMenu, FiX, FiSun } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiShoppingCart } from 'react-icons/fi';
+import { useCart } from '../../context/CartContext';
 import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -26,8 +29,9 @@ const Header = () => {
   const navItems = [
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About Us' },
-    { path: '/services', label: 'Services' },
-    { path: '/products', label: 'Products' },
+    // { path: '/services', label: 'Services' }, // Hidden as requested by user
+    { path: '/products', label: 'About Products' },
+    { path: '/buy-products', label: 'Buy Products' },
     { path: '/contact', label: 'Contact' }
   ];
 
@@ -55,8 +59,9 @@ const Header = () => {
                 {item.label}
               </Link>
             ))}
-            <Link to="/contact" className="nav-cta">
-              Get a Quote
+            <Link to="/cart" className={`nav-link cart-icon-link ${location.pathname === '/cart' ? 'active' : ''}`}>
+              <FiShoppingCart className="cart-icon" />
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </Link>
           </div>
 
@@ -78,8 +83,12 @@ const Header = () => {
               {item.label}
             </Link>
           ))}
-          <Link to="/contact" className="nav-link-mobile nav-link-cta" onClick={() => setIsMenuOpen(false)}>
-            Get a Quote
+          <Link
+            to="/cart"
+            className={`nav-link-mobile ${location.pathname === '/cart' ? 'active' : ''}`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Cart ({cartCount})
           </Link>
         </div>
       </nav>

@@ -13,8 +13,7 @@
   position: relative;
   min-height: 100vh;
   padding: 8rem 0 6rem;
-  background: linear-gradient(120deg, rgba(5, 36, 47, 0.85), rgba(6, 79, 84, 0.55)),
-    url('./../../public/images/backgrounds/chemistry-plants.png') center/cover no-repeat;
+  background: linear-gradient(120deg, rgba(5, 36, 47, 0.85), rgba(6, 79, 84, 0.55));
   color: var(--white);
   display: flex;
   align-items: center;

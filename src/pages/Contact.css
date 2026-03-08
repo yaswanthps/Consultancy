@@ -4,33 +4,28 @@
   overflow-x: hidden;
 }
 
-/* Contact Hero Section */
-.contact-hero {
-  padding: var(--spacing-xxl) 0;
-  background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
-  text-align: center;
+/* Contact Hero Section - Matching Services Page */
+.services-hero {
+  position: relative;
+  min-height: 110vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(130deg, rgba(5, 36, 47, 0.95), rgba(6, 79, 84, 0.85));
+  overflow: hidden;
 }
 
-.contact-hero .hero-content {
-  max-width: var(--container-max-width);
-  margin: 0 auto;
-  padding: 0 var(--container-padding);
+.services-hero .hero-main-title,
+.services-hero .hero-description,
+.services-hero .hero-highlight {
+  color: var(--white);
 }
 
-.contact-hero .hero-title {
-  font-size: 3rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: var(--primary-green);
-  margin-bottom: var(--spacing-md);
-}
-
-.contact-hero .hero-description {
-  font-size: 1.25rem;
-  color: var(--medium-gray);
-  line-height: 1.6;
-  max-width: 700px;
-  margin: 0 auto;
+.services-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 60% 40%, rgba(63, 183, 166, 0.25), transparent 60%);
+  pointer-events: none;
 }
 
 /* Contact Content */
@@ -56,23 +51,23 @@
 .info-card {
   text-align: center;
   padding: var(--spacing-xl);
-  background: linear-gradient(135deg, rgba(45, 212, 191, 0.1), rgba(59, 130, 246, 0.08));
+  background: linear-gradient(135deg, rgba(21, 106, 106, 0.05), rgba(63, 183, 166, 0.08));
   border-radius: var(--border-radius-lg);
-  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.12);
-  border: 1px solid rgba(45, 212, 191, 0.2);
+  box-shadow: 0 4px 20px rgba(11, 47, 59, 0.08);
+  border: 1px solid rgba(63, 183, 166, 0.15);
   transition: all var(--transition-normal);
 }
 
 .info-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.18);
-  background: linear-gradient(135deg, rgba(45, 212, 191, 0.15), rgba(59, 130, 246, 0.12));
+  box-shadow: 0 8px 30px rgba(11, 47, 59, 0.15);
+  background: linear-gradient(135deg, rgba(21, 106, 106, 0.08), rgba(63, 183, 166, 0.12));
 }
 
 .info-icon {
   width: 60px;
   height: 60px;
-  background: linear-gradient(135deg, #3B82F6, #2DD4BF);
+  background: linear-gradient(135deg, var(--secondary-green), var(--accent-green));
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -80,12 +75,12 @@
   margin: 0 auto var(--spacing-md);
   color: var(--white);
   font-size: 1.5rem;
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 8px 25px rgba(21, 106, 106, 0.3);
 }
 
 .info-card h3 {
   font-size: 1.25rem;
-  color: #1E40AF;
+  color: var(--primary-green);
   margin-bottom: var(--spacing-sm);
   font-weight: 600;
 }
@@ -106,11 +101,11 @@
 
 /* Contact Form Section */
 .contact-form-section {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(45, 212, 191, 0.05));
+  background: rgba(21, 106, 106, 0.08);
   padding: var(--spacing-xxl);
   border-radius: var(--border-radius-xl);
-  box-shadow: 0 4px 25px rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(45, 212, 191, 0.2);
+  box-shadow: 0 4px 25px rgba(11, 47, 59, 0.12);
+  border: 1px solid rgba(63, 183, 166, 0.25);
 }
 
 .contact-form {
@@ -133,26 +128,26 @@
 .form-group input,
 .form-group textarea {
   padding: var(--spacing-md) var(--spacing-lg);
-  border: 2px solid #e9ecef;
+  border: 2px solid rgba(21, 106, 106, 0.2);
   border-radius: var(--border-radius-md);
   font-size: 1rem;
   font-family: inherit;
   transition: all var(--transition-fast);
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.85);
   color: var(--dark-gray);
 }
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-  color: #adb5bd;
+  color: var(--medium-gray);
   font-weight: 400;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #3B82F6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--secondary-green);
+  box-shadow: 0 0 0 3px rgba(63, 183, 166, 0.15);
 }
 
 .form-group textarea {
@@ -162,27 +157,9 @@
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #3B82F6, #2DD4BF);
-  color: var(--white);
-  border: none;
-  padding: var(--spacing-md) var(--spacing-xxl);
-  border-radius: var(--border-radius-md);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all var(--transition-normal);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-xs);
-  margin-top: var(--spacing-md);
+  /* Using global .btn and .btn-primary properties from App.css */
   width: fit-content;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
-}
-
-.submit-btn:hover:not(:disabled) {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  margin-top: var(--spacing-md);
 }
 
 .submit-btn:disabled {
@@ -195,11 +172,11 @@
 }
 
 .submit-message {
-  background: rgba(59, 130, 246, 0.1);
-  color: #1E40AF;
+  background: rgba(63, 183, 166, 0.1);
+  color: var(--primary-green);
   padding: var(--spacing-md);
   border-radius: var(--border-radius-md);
-  border-left: 4px solid #3B82F6;
+  border-left: 4px solid var(--accent-green);
   margin-top: var(--spacing-md);
   font-weight: 500;
 }
@@ -209,20 +186,14 @@
 /* Map Section */
 .map-section {
   padding: var(--spacing-xxl) 0;
-  background: linear-gradient(135deg, rgba(11, 47, 59, 0.9), rgba(21, 106, 106, 0.8)),
-    url('./../../public/images/backgrounds/molecular-tech.png') center/cover no-repeat;
-  background-attachment: fixed;
+  background: var(--primary-green);
   color: var(--white);
   position: relative;
   overflow: hidden;
 }
 
 .map-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 70%, rgba(63, 183, 166, 0.2), transparent 50%);
-  pointer-events: none;
+  display: none;
 }
 
 .map-section .container {
@@ -241,6 +212,8 @@
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   margin-top: var(--spacing-xl);
+  min-height: 400px;
+  background: linear-gradient(135deg, rgba(11, 47, 59, 1), rgba(21, 106, 106, 1));
 }
 
 .map-image {
@@ -328,16 +301,16 @@
   .contact-form-section {
     padding: var(--spacing-lg);
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
     gap: var(--spacing-sm);
   }
-  
+
   .info-card {
     padding: var(--spacing-lg);
   }
-  
+
   .contact-form-container {
     max-width: 100%;
   }

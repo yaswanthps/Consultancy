@@ -7,7 +7,10 @@ import Services from './pages/Services';
 import ServiceDetail from './pages/ServiceDetail';
 import Projects from './pages/Projects';
 import ProductDetail from './pages/ProductDetail';
+import BuyProducts from './pages/BuyProducts';
 import Contact from './pages/Contact';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
 import './App.css';
 
 function App() {
@@ -19,9 +22,12 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Projects />} />
           <Route path="/products/:id" element={<ProductDetail />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:id" element={<ServiceDetail />} />
+          <Route path="/buy-products" element={<BuyProducts />} />
+          {/* <Route path="/services" element={<Services />} /> */}
+          {/* <Route path="/services/:id" element={<ServiceDetail />} /> */}
           <Route path="/contact" element={<Contact />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
           {/* <Route path="*" element={<NotFound />} /> */}
         </Routes>
       </Layout>

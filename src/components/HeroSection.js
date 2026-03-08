@@ -3,20 +3,24 @@ import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import './HeroSection.css';
 
-const HeroSection = ({ 
-  title, 
-  titleHighlight, 
-  subtitle, 
-  description, 
-  primaryButtonText, 
+const HeroSection = ({
+  title,
+  titleHighlight,
+  subtitle,
+  description,
+  primaryButtonText,
   primaryButtonLink,
   secondaryButtonText,
   secondaryButtonLink,
   backgroundImage,
-  stats
+  stats,
+  className
 }) => {
   return (
-    <section className="hero-section" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <section
+      className={`hero-section ${className || ''}`}
+      style={backgroundImage ? { backgroundImage: `url(${backgroundImage})` } : {}}
+    >
       <div className="hero-overlay"></div>
       <div className="hero-container">
         <div className="hero-left">
@@ -26,7 +30,7 @@ const HeroSection = ({
             {titleHighlight && <span className="hero-highlight">{titleHighlight}</span>}
           </h1>
           <p className="hero-description">{description}</p>
-          
+
           <div className="hero-buttons">
             {primaryButtonLink && (
               <Link to={primaryButtonLink} className="btn-hero btn-hero-primary">

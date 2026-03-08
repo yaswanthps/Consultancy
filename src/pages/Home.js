@@ -76,7 +76,7 @@ const Home = () => {
       <section className="home-features">
         <div className="container">
           <div className="home-section-header">
-            <span className="section-tag">Why SurfauxDyeChem</span>
+            
             <h2 className="section-title">Enterprise-ready chemistry for modern industry</h2>
             <p className="section-description">
               A premium, compliance-driven partner delivering performance, transparency, and sustainability.
