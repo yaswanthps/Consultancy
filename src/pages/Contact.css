@@ -5,23 +5,26 @@
 }
 
 /* Contact Hero Section - Matching Services Page */
-.services-hero {
+.contact-hero {
   position: relative;
   min-height: 110vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(130deg, rgba(5, 36, 47, 0.95), rgba(6, 79, 84, 0.85));
+  background: url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1920&h=1080&fit=crop');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   overflow: hidden;
 }
 
-.services-hero .hero-main-title,
-.services-hero .hero-description,
-.services-hero .hero-highlight {
+.contact-hero .hero-main-title,
+.contact-hero .hero-description,
+.contact-hero .hero-highlight {
   color: var(--white);
 }
 
-.services-hero-overlay {
+.contact-hero-overlay {
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 60% 40%, rgba(63, 183, 166, 0.25), transparent 60%);

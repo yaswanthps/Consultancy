@@ -55,7 +55,7 @@ const Cart = () => {
                                                 <span className="item-volume" style={{ fontSize: '0.85rem', color: 'var(--medium-gray)' }}>{item.volume}</span>
                                             </div>
                                         </div>
-                                        <div className="item-price">${item.price.toFixed(2)}</div>
+                                        <div className="item-price">₹{item.price.toFixed(2)}</div>
                                         <div className="item-quantity">
                                             <input
                                                 type="number"
@@ -65,7 +65,7 @@ const Cart = () => {
                                             />
                                         </div>
                                         <div className="item-subtotal">
-                                            ${(item.price * item.quantity).toFixed(2)}
+                                            ₹{(item.price * item.quantity).toFixed(2)}
                                         </div>
                                         <div className="item-remove">
                                             <button className="btn-remove" onClick={() => removeFromCart(item.id, item.volume)}>
@@ -82,7 +82,7 @@ const Cart = () => {
                                 <h3>Order Summary</h3>
                                 <div className="summary-row">
                                     <span>Subtotal</span>
-                                    <span>${getCartTotal().toFixed(2)}</span>
+                                    <span>₹{getCartTotal().toFixed(2)}</span>
                                 </div>
                                 <div className="summary-row">
                                     <span>Shipping</span>
@@ -91,7 +91,7 @@ const Cart = () => {
                                 <div className="summary-divider"></div>
                                 <div className="summary-row total">
                                     <span>Total</span>
-                                    <span>${getCartTotal().toFixed(2)}</span>
+                                    <span>₹{getCartTotal().toFixed(2)}</span>
                                 </div>
                                 <button className="btn btn-primary btn-checkout" onClick={() => navigate('/checkout')}>
                                     Proceed to Checkout

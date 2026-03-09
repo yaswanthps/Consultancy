@@ -46,7 +46,7 @@ export const services = [
     title: "Clean Technology Research",
     description: "Cutting-edge research and development for sustainable technologies",
     icon: "🔬",
-    image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=400&h=300&fit=crop",
+    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=400&h=300&fit=crop",
     features: ["Green catalysis", "Novel synthesis methods", "Process optimization"]
   }
 ];

@@ -86,7 +86,7 @@ const BuyProducts = () => {
                                     <p className="product-description" style={{ color: '#718096', fontSize: '0.9rem', marginBottom: '15px', height: '40px', overflow: 'hidden' }}>
                                         {product.description}
                                     </p>
-                                    <p className="product-price">${(product.id * 50 + 100).toFixed(2)} / Liter</p>
+                                    <p className="product-price">₹{(product.id * 50 + 100).toFixed(2)} / Liter</p>
 
                                     <div className="product-actions">
                                         <button className="btn btn-primary btn-add-to-cart" onClick={() => addToCart(product, 1, '1 Liter Bottle')}>
@@ -127,7 +127,7 @@ const BuyProducts = () => {
                                 <span className="product-category">{selectedProductDetails.category}</span>
                                 <h2 className="product-name modal-title">{selectedProductDetails.title}</h2>
                                 <p className="product-price modal-price">
-                                    ${(selectedProductDetails.id * 50 + 100).toFixed(2)} <span className="price-unit">per Liter</span>
+                                    ₹{(selectedProductDetails.id * 50 + 100).toFixed(2)} <span className="price-unit">per Liter</span>
                                 </p>
 
                                 <div className="product-description modal-desc">

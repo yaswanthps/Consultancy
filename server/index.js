@@ -16,6 +16,16 @@ mongoose.connect(process.env.MONGO_URI)
 
 // --- DATABASE MODEL ---
 // This tells MongoDB what your data should look like
+
+// NEW: USER MODEL for Authentication
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true }, // Note: In a real app, always hash passwords (e.g., using bcrypt)!
+    createdAt: { type: Date, default: Date.now }
+});
+const User = mongoose.model('User', userSchema);
+
 const contactSchema = new mongoose.Schema({
     name: String,
     email: String,
@@ -58,6 +68,55 @@ const orderSchema = new mongoose.Schema({
 });
 
 const Order = mongoose.model('Order', orderSchema);
+
+// ==========================================
+// AUTHENTICATION ROUTES
+// ==========================================
+
+// Register a new user
+app.post('/api/register', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        // Check if user already exists
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ success: false, message: 'User already exists with this email.' });
+        }
+
+        // Create new user (WARNING: passwords should be hashed in production!)
+        const newUser = new User({ name, email, password });
+        await newUser.save();
+
+        res.status(201).json({ success: true, message: 'User registered successfully!' });
+    } catch (error) {
+        console.error('Registration error:', error);
+        res.status(500).json({ success: false, message: 'Server error during registration.' });
+    }
+});
+
+// Login an existing user
+app.post('/api/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Find user by email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Invalid email or password.' });
+        }
+
+        // Check password (In production, compare with hashed password!)
+        if (user.password !== password) {
+            return res.status(401).json({ success: false, message: 'Invalid email or password.' });
+        }
+
+        res.json({ success: true, message: 'Login successful!', user: { name: user.name, email: user.email } });
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ success: false, message: 'Server error during login.' });
+    }
+});
 
 // Example API Route - Testing the connection
 app.get('/api/test', (req, res) => {

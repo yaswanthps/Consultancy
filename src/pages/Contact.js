@@ -43,19 +43,19 @@ const Contact = () => {
     <div className="contact">
       {/* Hero Section */}
       <HeroSection
-        className="services-hero"
+        className="contact-hero"
         subtitle="Let's Talk"
         title="Get in "
         titleHighlight="Touch With Us"
         description="Ready to transform your business with sustainable chemistry solutions? We'd love to hear from you and discuss how we can help achieve your environmental and production goals."
         primaryButtonText="Send Message"
-        primaryButtonLink="/contact"
+        primaryButtonLink="#contact-form"
       /* secondaryButtonText="View Services" */
       /* secondaryButtonLink="/services" */
       />
 
       {/* Contact Content */}
-      <section className="contact-content">
+      <section className="contact-content" id="contact-form">
         <div className="container">
           {/* Top Info Section - Three Columns */}
           <div className="contact-info-top">
@@ -193,6 +193,17 @@ const Contact = () => {
         <div className="container">
           <h2 className="section-title">Find Us</h2>
           <div className="map-placeholder">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15658.0080643794!2d77.3421712!3d11.1468161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba90680d7c71fcd%3A0xc31c0688cc3ad2fc!2sMoraji%20Desai%20Nagar%2C%20Chettipalayam%2C%20Tiruppur%2C%20Tamil%20Nadu%20641603!5e0!3m2!1sen!2sin!4v1710156930000!5m2!1sen!2sin"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="SurfauxDyeChem Location"
+              className="map-image"
+            ></iframe>
             <div className="map-overlay">
               <div className="map-info">
                 <h3> SurfauxDyeChemHeadquarters</h3>

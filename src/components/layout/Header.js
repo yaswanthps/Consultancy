@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiMenu, FiX, FiSun, FiShoppingCart } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiShoppingCart, FiLogOut } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import './Header.css';
 
-const Header = () => {
+const Header = ({ onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
@@ -63,6 +63,9 @@ const Header = () => {
               <FiShoppingCart className="cart-icon" />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
             </Link>
+            <button className="nav-link logout-btn" onClick={onLogout} style={{ background: 'transparent', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'inherit', fontSize: '1rem', fontWeight: '500' }}>
+              <FiLogOut /> Log Out
+            </button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -90,6 +93,16 @@ const Header = () => {
           >
             Cart ({cartCount})
           </Link>
+          <button
+            className="nav-link-mobile"
+            onClick={() => {
+              setIsMenuOpen(false);
+              onLogout && onLogout();
+            }}
+            style={{ background: 'transparent', border: 'none', textAlign: 'left', width: '100%', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'red' }}
+          >
+            <FiLogOut /> Log Out
+          </button>
         </div>
       </nav>
     </header>

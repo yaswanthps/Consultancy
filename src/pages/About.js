@@ -1,8 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiSun, FiTarget, FiAward } from 'react-icons/fi';
+import { FiSun, FiTarget, FiAward, FiUsers, FiGlobe } from 'react-icons/fi';
 import { teamMembers, companyStats } from '../data/mockData';
 import './About.css';
+
+// Helper component for animated numbers
+const AnimatedNumber = ({ number }) => {
+  const numericValue = parseInt(number.replace(/[^0-9]/g, ''), 10);
+  const suffix = number.replace(/[0-9]/g, '');
+  const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const elementRef = React.useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isVisible) {
+      let start = 0;
+      const duration = 2000; // ms
+      const increment = numericValue / (duration / 30);
+
+      const timer = setInterval(() => {
+        start += increment;
+        if (start >= numericValue) {
+          setCount(numericValue);
+          clearInterval(timer);
+        } else {
+          setCount(Math.ceil(start));
+        }
+      }, 30);
+      return () => clearInterval(timer);
+    }
+  }, [isVisible, numericValue]);
+
+  return (
+    <span ref={elementRef}>
+      {count}
+      {suffix}
+    </span>
+  );
+};
 
 const About = () => {
   return (
@@ -13,17 +66,17 @@ const About = () => {
           <div className="hero-content">
             <div className="hero-text">
               <h1 className="hero-title">
-                Pioneering <span className="text-accent">Sustainable Chemistry</span> 
+                Pioneering <span className="text-accent">Sustainable Chemistry</span>
                 Since 2009
               </h1>
               <p className="hero-description">
-                We are a leading innovator in eco-friendly chemical solutions, committed to 
+                We are a leading innovator in eco-friendly chemical solutions, committed to
                 revolutionizing industrial processes while protecting our planet for future generations.
               </p>
             </div>
             <div className="hero-image">
-              <img 
-                src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=600&fit=crop" 
+              <img
+                src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=600&fit=crop"
                 alt="Our Research Laboratory"
               />
             </div>
@@ -54,8 +107,8 @@ const About = () => {
               <FiTarget className="card-icon" />
               <h3 className="card-title">Our Mission</h3>
               <p className="card-description">
-                To develop and deliver sustainable chemical solutions that enable industries 
-                to achieve their environmental goals without compromising performance or quality. 
+                To develop and deliver sustainable chemical solutions that enable industries
+                to achieve their environmental goals without compromising performance or quality.
                 We believe that chemistry can be a force for good in creating a more sustainable world.
               </p>
             </div>
@@ -63,8 +116,8 @@ const About = () => {
               <FiSun className="card-icon" />
               <h3 className="card-title">Our Vision</h3>
               <p className="card-description">
-                To become the global leader in sustainable chemistry, where every chemical process 
-                contributes to a circular economy and every product we create helps build a greener, 
+                To become the global leader in sustainable chemistry, where every chemical process
+                contributes to a circular economy and every product we create helps build a greener,
                 more sustainable future for all.
               </p>
             </div>
@@ -117,9 +170,9 @@ const About = () => {
               </div>
             </div>
             <div className="story-image">
-              <img 
-                src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600&h=400&fit=crop" 
-                alt="Our Company History"
+              <img
+                src="https://images.unsplash.com/photo-1542744095-291d1f67b221?w=600&h=400&fit=crop"
+                alt="Our Chemical Manufacturing Facility"
               />
             </div>
           </div>
@@ -135,7 +188,7 @@ const About = () => {
               <div className="value-icon">🌱</div>
               <h3 className="value-title">Sustainability First</h3>
               <p className="value-description">
-                Every decision we make is guided by its environmental impact, 
+                Every decision we make is guided by its environmental impact,
                 ensuring a sustainable future for generations to come.
               </p>
             </div>
@@ -143,7 +196,7 @@ const About = () => {
               <div className="value-icon">🔬</div>
               <h3 className="value-title">Innovation Excellence</h3>
               <p className="value-description">
-                We continuously push the boundaries of what's possible in 
+                We continuously push the boundaries of what's possible in
                 green chemistry through cutting-edge research and development.
               </p>
             </div>
@@ -151,7 +204,7 @@ const About = () => {
               <div className="value-icon">🤝</div>
               <h3 className="value-title">Collaborative Partnership</h3>
               <p className="value-description">
-                We work closely with our clients as partners, understanding 
+                We work closely with our clients as partners, understanding
                 their unique needs and co-creating tailored solutions.
               </p>
             </div>
@@ -159,7 +212,7 @@ const About = () => {
               <div className="value-icon">🌍</div>
               <h3 className="value-title">Global Responsibility</h3>
               <p className="value-description">
-                We take responsibility for our impact on the planet and 
+                We take responsibility for our impact on the planet and
                 actively work to create positive change in communities worldwide.
               </p>
             </div>
@@ -175,7 +228,9 @@ const About = () => {
             {companyStats.map((stat, index) => (
               <div key={index} className="stat-item">
                 <span className="stat-icon">{stat.icon}</span>
-                <h3 className="stat-number">{stat.number}</h3>
+                <h3 className="stat-number">
+                  <AnimatedNumber number={stat.number} />
+                </h3>
                 <p className="stat-label">{stat.label}</p>
               </div>
             ))}
@@ -249,7 +304,7 @@ const About = () => {
           <div className="cta-content">
             <h2 className="cta-title">Join Our Mission</h2>
             <p className="cta-description">
-              Partner with us to create sustainable solutions that make a real difference 
+              Partner with us to create sustainable solutions that make a real difference
               for your business and our planet.
             </p>
             <div className="cta-actions">
@@ -263,6 +318,7 @@ const About = () => {
           </div>
         </div>
       </section>
+
     </div>
   );
 };

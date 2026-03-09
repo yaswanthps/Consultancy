@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
@@ -11,12 +11,19 @@ import BuyProducts from './pages/BuyProducts';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import Auth from './pages/Auth';
 import './App.css';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  if (!isAuthenticated) {
+    return <Auth onLogin={() => setIsAuthenticated(true)} />;
+  }
+
   return (
     <Router>
-      <Layout>
+      <Layout onLogout={() => setIsAuthenticated(false)}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

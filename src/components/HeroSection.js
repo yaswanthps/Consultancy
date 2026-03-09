@@ -33,9 +33,24 @@ const HeroSection = ({
 
           <div className="hero-buttons">
             {primaryButtonLink && (
-              <Link to={primaryButtonLink} className="btn-hero btn-hero-primary">
-                {primaryButtonText} <FiArrowRight />
-              </Link>
+              primaryButtonLink.startsWith('#') ? (
+                <a href={primaryButtonLink}
+                  className="btn-hero btn-hero-primary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(primaryButtonLink);
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
+                  {primaryButtonText} <FiArrowRight />
+                </a>
+              ) : (
+                <Link to={primaryButtonLink} className="btn-hero btn-hero-primary">
+                  {primaryButtonText} <FiArrowRight />
+                </Link>
+              )
             )}
             {secondaryButtonLink && (
               <Link to={secondaryButtonLink} className="btn-hero btn-hero-secondary">

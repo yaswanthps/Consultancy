@@ -258,7 +258,7 @@ const Checkout = () => {
                             className={`btn btn-primary submit-order-btn ${isProcessing ? 'processing' : ''}`}
                             disabled={isProcessing}
                         >
-                            {isProcessing ? 'Processing Payment...' : `Place Order - $${total.toFixed(2)}`}
+                            {isProcessing ? 'Processing Payment...' : `Place Order - ₹${total.toFixed(2)}`}
                         </button>
                     </form>
                 </div>
@@ -274,7 +274,7 @@ const Checkout = () => {
                                         <span className="checkout-item-title">{item.title}</span>
                                         <span className="checkout-item-meta">{item.volume} x {item.quantity}</span>
                                     </div>
-                                    <span className="checkout-item-price">${(item.price * item.quantity).toFixed(2)}</span>
+                                    <span className="checkout-item-price">₹{(item.price * item.quantity).toFixed(2)}</span>
                                 </div>
                             ))}
                         </div>
@@ -282,20 +282,20 @@ const Checkout = () => {
                         <div className="checkout-totals">
                             <div className="checkout-total-row">
                                 <span>Subtotal</span>
-                                <span>${subtotal.toFixed(2)}</span>
+                                <span>₹{subtotal.toFixed(2)}</span>
                             </div>
                             <div className="checkout-total-row">
                                 <span>Shipping (Flat Rate)</span>
-                                <span>${shipping.toFixed(2)}</span>
+                                <span>₹{shipping.toFixed(2)}</span>
                             </div>
                             <div className="checkout-total-row">
                                 <span>Tax (8%)</span>
-                                <span>${tax.toFixed(2)}</span>
+                                <span>₹{tax.toFixed(2)}</span>
                             </div>
                             <div className="checkout-total-divider"></div>
                             <div className="checkout-total-row final-total">
                                 <span>Total</span>
-                                <span className="highlight-price">${total.toFixed(2)}</span>
+                                <span className="highlight-price">₹{total.toFixed(2)}</span>
                             </div>
                         </div>
                     </div>
@@ -311,7 +311,7 @@ const Checkout = () => {
                         </div>
                         <h2 className="success-title">Payment Successful!</h2>
                         <p className="success-message">
-                            Thank you for your order, {formData.firstName}. We have received your payment of <strong style={{ color: 'var(--primary-green)' }}>${total.toFixed(2)}</strong>.
+                            Thank you for your order, {formData.firstName}. We have received your payment of <strong style={{ color: 'var(--primary-green)' }}>₹{total.toFixed(2)}</strong>.
                         </p>
                         <p className="success-helper">
                             An email receipt has been sent to {formData.email || 'your email address'}. Your order will begin processing immediately.
