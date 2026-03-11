@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FiArrowLeft, FiCheckCircle, FiDroplet, FiThermometer, FiClock } from 'react-icons/fi';
-import { projects } from '../data/mockData';
+import { useProducts } from '../hooks/useProducts';
 import './ProductDetail.css';
 
 const ProductDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const product = projects.find(p => p.id === parseInt(id));
+    const allProducts = useProducts();
+    const product = useMemo(() => allProducts.find(p => String(p.id) === String(id)), [allProducts, id]);
 
     if (!product) {
         return (

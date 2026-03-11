@@ -69,6 +69,21 @@ const orderSchema = new mongoose.Schema({
 
 const Order = mongoose.model('Order', orderSchema);
 
+// --- PRODUCT MODEL ---
+const productSchema = new mongoose.Schema({
+    id: { type: String },
+    title: { type: String, required: true },
+    category: { type: String, default: 'Circular Economy' },
+    description: { type: String, default: '' },
+    price: { type: Number, default: 0 },
+    stock: { type: Number, default: 100 },
+    availability: { type: String, default: 'In Stock' }, // 'In Stock', 'Low Stock', 'Out of Stock'
+    unit: { type: String, default: '1 Liter Bottle' },
+    image: { type: String, default: '/images/polyester-fabric.webp' },
+    createdAt: { type: Date, default: Date.now }
+});
+const Product = mongoose.model('Product', productSchema);
+
 // ==========================================
 // AUTHENTICATION ROUTES
 // ==========================================
@@ -118,6 +133,38 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// Google OAuth login / register
+app.post('/api/auth/google', async (req, res) => {
+    try {
+        const { name, email, googleId, picture } = req.body;
+        console.log('Backend Google Auth received:', { name, email, googleId });
+
+        if (!email || !googleId) {
+            return res.status(400).json({ success: false, message: 'Invalid Google credentials.' });
+        }
+
+        // Find or create the user
+        let user = await User.findOne({ email });
+        console.log('User found in DB:', user ? 'Yes' : 'No');
+        if (!user) {
+            // Register new user via Google (no password needed)
+            const randomPass = Math.random().toString(36).slice(-8);
+            user = new User({
+                name: name || email,
+                email,
+                password: `google_${googleId}_${randomPass}`, // placeholder — not used for login
+            });
+            await user.save();
+            console.log('New user created via Google:', email);
+        }
+
+        res.json({ success: true, message: 'Google login successful!', user: { name: user.name, email: user.email, picture } });
+    } catch (error) {
+        console.error('Google auth error:', error);
+        res.status(500).json({ success: false, message: 'Google authentication failed.' });
+    }
+});
+
 // Example API Route - Testing the connection
 app.get('/api/test', (req, res) => {
     res.json({ message: 'Hello from the backend!' });
@@ -145,6 +192,65 @@ app.post('/api/contact', async (req, res) => {
     } catch (error) {
         console.error('Error saving data:', error);
         res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// ==========================================
+// PRODUCT CRUD ROUTES
+// ==========================================
+
+// GET all products
+app.get('/api/products', async (req, res) => {
+    try {
+        const products = await Product.find().sort({ createdAt: -1 });
+        res.json({ success: true, products });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch products.' });
+    }
+});
+
+// POST create a new product (Admin)
+app.post('/api/products', async (req, res) => {
+    try {
+        const product = new Product({ ...req.body, id: req.body.id || Date.now().toString() });
+        await product.save();
+        res.status(201).json({ success: true, product });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to create product.' });
+    }
+});
+
+// PUT update a product (Admin)
+app.put('/api/products/:id', async (req, res) => {
+    try {
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!product) return res.status(404).json({ success: false, message: 'Product not found.' });
+        res.json({ success: true, product });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to update product.' });
+    }
+});
+
+// DELETE a product (Admin)
+app.delete('/api/products/:id', async (req, res) => {
+    try {
+        await Product.findByIdAndDelete(req.params.id);
+        res.json({ success: true, message: 'Product deleted.' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to delete product.' });
+    }
+});
+
+// POST bulk seed products (called once to migrate from mockData)
+app.post('/api/products/seed', async (req, res) => {
+    try {
+        const { products } = req.body;
+        const count = await Product.countDocuments();
+        if (count > 0) return res.json({ success: true, message: 'Already seeded.', count });
+        await Product.insertMany(products);
+        res.json({ success: true, message: `Seeded ${products.length} products.` });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Seed failed.' });
     }
 });
 
