@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-    FiHome, FiBox, FiShoppingCart, FiLogOut, FiBarChart2
+    FiHome, FiBox, FiShoppingCart, FiLogOut, FiBarChart2, FiMessageSquare
 } from 'react-icons/fi';
 import { AdminProvider } from './AdminContext';
 import './AdminLayout.css';
@@ -32,6 +32,9 @@ const AdminLayout = ({ children, onLogout }) => {
                         </NavLink>
                         <NavLink to="/admin/analytics" className={({ isActive }) => isActive ? 'admin-nav-link active' : 'admin-nav-link'}>
                             <FiBarChart2 /> Analytics
+                        </NavLink>
+                        <NavLink to="/admin/messages" className={({ isActive }) => isActive ? 'admin-nav-link active' : 'admin-nav-link'}>
+                            <FiMessageSquare /> Messages
                         </NavLink>
                     </nav>
 

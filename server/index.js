@@ -29,7 +29,10 @@ const User = mongoose.model('User', userSchema);
 const contactSchema = new mongoose.Schema({
     name: String,
     email: String,
+    phone: String,
+    subject: String,
     message: String,
+    status: { type: String, default: 'unread' }, // 'unread' or 'read'
     date: { type: Date, default: Date.now }
 });
 
@@ -173,25 +176,42 @@ app.get('/api/test', (req, res) => {
 // --- NEW ROUTE: STORE DATA IN MONGODB (Original Test Route) ---
 app.post('/api/contact', async (req, res) => {
     try {
-        // 1. Get the data that React sent us
-        const { name, email, message } = req.body;
+        const { name, email, phone, subject, message } = req.body;
 
-        // 2. Create a new Contact document using our model
         const newContact = new Contact({
-            name: name,
-            email: email,
-            message: message
+            name,
+            email,
+            phone,
+            subject,
+            message
         });
 
-        // 3. Save it to MongoDB
         await newContact.save();
-
-        // 4. Tell React it was successful
-        res.status(201).json({ success: true, message: 'Data saved successfully!' });
+        res.status(201).json({ success: true, message: 'Message sent successfully!' });
 
     } catch (error) {
-        console.error('Error saving data:', error);
+        console.error('Error saving message:', error);
         res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// GET all messages (Admin)
+app.get('/api/admin/messages', async (req, res) => {
+    try {
+        const messages = await Contact.find().sort({ date: -1 });
+        res.json({ success: true, messages });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch messages.' });
+    }
+});
+
+// DELETE a message (Admin)
+app.delete('/api/admin/messages/:id', async (req, res) => {
+    try {
+        await Contact.findByIdAndDelete(req.params.id);
+        res.json({ success: true, message: 'Message deleted.' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to delete message.' });
     }
 });
 
@@ -263,10 +283,27 @@ app.post('/api/orders', async (req, res) => {
     try {
         const orderData = req.body;
 
-        // Optionally: if payment method is "card" or "upi" and it was "successful",
-        // you could set payment.status = 'Paid' here before saving.
+        // Check stock availability first
+        for (const item of orderData.orderItems) {
+            const product = await Product.findOne({ id: item.id });
+            if (!product) {
+                return res.status(404).json({ success: false, message: `Product ${item.id} not found.` });
+            }
+            if (product.stock < item.quantity) {
+                return res.status(400).json({ success: false, message: `Insufficient stock for ${product.name}. Available: ${product.stock}` });
+            }
+        }
+
+        // Reduce stock for each item
+        for (const item of orderData.orderItems) {
+            await Product.findOneAndUpdate(
+                { id: item.id },
+                { $inc: { stock: -item.quantity } }
+            );
+        }
+
         if (orderData.payment && orderData.payment.method !== 'cod') {
-            orderData.payment.status = 'Paid'; // Assuming validation passed on frontend for now
+            orderData.payment.status = 'Paid';
         }
 
         const newOrder = new Order(orderData);
@@ -274,7 +311,7 @@ app.post('/api/orders', async (req, res) => {
 
         res.status(201).json({
             success: true,
-            message: 'Order placed successfully!',
+            message: 'Order placed successfully and stock updated!',
             orderId: savedOrder._id
         });
 

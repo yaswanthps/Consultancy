@@ -17,6 +17,7 @@ import Dashboard from './pages/admin/Dashboard';
 import ProductsManager from './pages/admin/ProductsManager';
 import OrdersManager from './pages/admin/OrdersManager';
 import Analytics from './pages/admin/Analytics';
+import AdminMessages from './pages/admin/AdminMessages';
 import './App.css';
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/products" element={<ProductsManager />} />
                 <Route path="/orders" element={<OrdersManager />} />
                 <Route path="/analytics" element={<Analytics />} />
+                <Route path="/messages" element={<AdminMessages />} />
               </Routes>
             </AdminLayout>
           ) : (
