@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { projects } from '../data/mockData';
+import { useNavigate } from 'react-router-dom';
+import { useProducts } from '../hooks/useProducts';
 import './Projects.css';
 
 const Projects = () => {
+  const navigate = useNavigate();
+  const projects = useProducts();
   const [selectedFilter] = useState('All');
   const [selectedStatus] = useState('All');
 
@@ -82,7 +85,7 @@ const Projects = () => {
                   <h3 className="project-title">{project.title}</h3>
                   <button
                     className="learn-more-btn"
-                    onClick={() => window.location.href = `/products/${project.id}`}
+                    onClick={() => navigate(`/products/${project.id}`)}
                   >
                     Learn More About Chemicals
                   </button>
@@ -166,7 +169,7 @@ const Projects = () => {
               Let's collaborate on creating sustainable solutions for your industry.
               Our expert team is ready to help you achieve your environmental goals.
             </p>
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={() => navigate('/contact')}>
               Discuss Your Project
             </button>
           </div>

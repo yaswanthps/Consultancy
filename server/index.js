@@ -9,10 +9,14 @@ const app = express();
 app.use(cors()); // Allow requests from React
 app.use(express.json()); // Parse JSON bodies in requests
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('Successfully connected to MongoDB!'))
-    .catch((err) => console.error('Error connecting to MongoDB:', err));
+// --- HELPER FUNCTIONS ---
+const getStockAvailability = (stock) => {
+    const s = Number(stock);
+    if (s <= 0) return 'Out of Stock';
+    if (s < 20) return 'Low Stock';
+    return 'In Stock';
+};
+
 
 // --- DATABASE MODEL ---
 // This tells MongoDB what your data should look like
@@ -66,9 +70,8 @@ const orderSchema = new mongoose.Schema({
         tax: Number,
         total: Number
     },
-    orderStatus: { type: String, default: 'Processing' }, // Processing, Shipped, Delivered, Cancelled
-    createdAt: { type: Date, default: Date.now }
-});
+    orderStatus: { type: String, default: 'Placed' }, // Placed, Processing, Shipped, Delivered, Cancelled
+}, { timestamps: true });
 
 const Order = mongoose.model('Order', orderSchema);
 
@@ -86,6 +89,41 @@ const productSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now }
 });
 const Product = mongoose.model('Product', productSchema);
+
+// --- CONNECTION AND SYNC ---
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URI)
+    .then(async () => {
+        console.log('Successfully connected to MongoDB!');
+        // Sync stock statuses on startup
+        try {
+            const products = await Product.find({});
+            console.log(`Checking ${products.length} products for status sync...`);
+            let syncCount = 0;
+            for (const product of products) {
+                const correctStatus = getStockAvailability(product.stock);
+                if (product.availability !== correctStatus) {
+                    product.availability = correctStatus;
+                    await product.save();
+                    syncCount++;
+                }
+            }
+            console.log(`Stock statuses synchronized. ${syncCount} products updated.`);
+        } catch (err) {
+            console.error('Error syncing stock statuses:', err);
+        }
+    })
+    .catch((err) => {
+        console.error('CRITICAL: Error connecting to MongoDB:', err.name, err.message);
+        if (err.name === 'MongooseServerSelectionError') {
+            console.log('\n--- TROUBLESHOOTING TIP ---');
+            console.log('It looks like a Connection Error. This usually means you need to:');
+            console.log('1. Go to MongoDB Atlas -> Network Access');
+            console.log('2. Click "Add IP Address" -> "Add Current IP Address"');
+            console.log('3. Restart this server (node index.js)');
+            console.log('---------------------------\n');
+        }
+    });
 
 // ==========================================
 // AUTHENTICATION ROUTES
@@ -168,6 +206,16 @@ app.post('/api/auth/google', async (req, res) => {
     }
 });
 
+// GET all users (Admin)
+app.get('/api/admin/users', async (req, res) => {
+    try {
+        const users = await User.find().sort({ createdAt: -1 });
+        res.json({ success: true, count: users.length, users });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to fetch users.' });
+    }
+});
+
 // Example API Route - Testing the connection
 app.get('/api/test', (req, res) => {
     res.json({ message: 'Hello from the backend!' });
@@ -187,6 +235,7 @@ app.post('/api/contact', async (req, res) => {
         });
 
         await newContact.save();
+        console.log('Message saved to DB:', newContact._id);
         res.status(201).json({ success: true, message: 'Message sent successfully!' });
 
     } catch (error) {
@@ -199,6 +248,7 @@ app.post('/api/contact', async (req, res) => {
 app.get('/api/admin/messages', async (req, res) => {
     try {
         const messages = await Contact.find().sort({ date: -1 });
+        console.log('Fetched messages count:', messages.length);
         res.json({ success: true, messages });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Failed to fetch messages.' });
@@ -215,9 +265,20 @@ app.delete('/api/admin/messages/:id', async (req, res) => {
     }
 });
 
+// UPDATE message status as read (Admin)
+app.put('/api/admin/messages/:id/read', async (req, res) => {
+    try {
+        await Contact.findByIdAndUpdate(req.params.id, { status: 'read' });
+        res.json({ success: true, message: 'Message marked as read.' });
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Failed to update message.' });
+    }
+});
+
 // ==========================================
 // PRODUCT CRUD ROUTES
 // ==========================================
+
 
 // GET all products
 app.get('/api/products', async (req, res) => {
@@ -232,7 +293,13 @@ app.get('/api/products', async (req, res) => {
 // POST create a new product (Admin)
 app.post('/api/products', async (req, res) => {
     try {
-        const product = new Product({ ...req.body, id: req.body.id || Date.now().toString() });
+        const stock = Number(req.body.stock) || 0;
+        const product = new Product({
+            ...req.body,
+            id: req.body.id || Date.now().toString(),
+            stock: stock,
+            availability: getStockAvailability(stock)
+        });
         await product.save();
         res.status(201).json({ success: true, product });
     } catch (error) {
@@ -243,7 +310,13 @@ app.post('/api/products', async (req, res) => {
 // PUT update a product (Admin)
 app.put('/api/products/:id', async (req, res) => {
     try {
-        const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updates = { ...req.body };
+        if (updates.stock !== undefined) {
+            updates.stock = Number(updates.stock);
+            updates.availability = getStockAvailability(updates.stock);
+        }
+
+        const product = await Product.findByIdAndUpdate(req.params.id, updates, { new: true });
         if (!product) return res.status(404).json({ success: false, message: 'Product not found.' });
         res.json({ success: true, product });
     } catch (error) {
@@ -285,21 +358,42 @@ app.post('/api/orders', async (req, res) => {
 
         // Check stock availability first
         for (const item of orderData.orderItems) {
-            const product = await Product.findOne({ id: item.id });
+            // Try to find by _id first if it's a valid ObjectId, otherwise find by custom id
+            const isObjectId = mongoose.Types.ObjectId.isValid(item.id);
+            const product = await Product.findOne({
+                $or: [
+                    { id: item.id },
+                    ...(isObjectId ? [{ _id: item.id }] : [])
+                ]
+            });
+
             if (!product) {
                 return res.status(404).json({ success: false, message: `Product ${item.id} not found.` });
             }
             if (product.stock < item.quantity) {
-                return res.status(400).json({ success: false, message: `Insufficient stock for ${product.name}. Available: ${product.stock}` });
+                return res.status(400).json({ success: false, message: `Insufficient stock for ${product.title}. Available: ${product.stock}` });
             }
         }
 
         // Reduce stock for each item
         for (const item of orderData.orderItems) {
-            await Product.findOneAndUpdate(
-                { id: item.id },
-                { $inc: { stock: -item.quantity } }
+            const isObjectId = mongoose.Types.ObjectId.isValid(item.id);
+            const product = await Product.findOneAndUpdate(
+                {
+                    $or: [
+                        { id: item.id },
+                        ...(isObjectId ? [{ _id: item.id }] : [])
+                    ]
+                },
+                { $inc: { stock: -item.quantity } },
+                { new: true }
             );
+
+            if (product) {
+                // Update availability status based on new stock level
+                product.availability = getStockAvailability(product.stock);
+                await product.save();
+            }
         }
 
         if (orderData.payment && orderData.payment.method !== 'cod') {

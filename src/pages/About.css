@@ -6,7 +6,8 @@
 
 /* About Hero Section */
 .about-hero {
-  padding: var(--spacing-xxl) 0;
+  padding: var(--spacing-lg) 0 var(--spacing-xxl);
+  /* Reduced top padding */
   background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
 }
 
@@ -419,6 +420,7 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+
   .about-hero .hero-content,
   .mission-vision-grid,
   .story-content {
@@ -426,31 +428,31 @@
     gap: var(--spacing-xl);
     text-align: center;
   }
-  
+
   .about-hero .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .story-content {
     text-align: left;
   }
-  
+
   .timeline-item {
     flex-direction: column;
     gap: var(--spacing-md);
   }
-  
+
   .timeline-year {
     align-self: flex-start;
   }
-  
+
   .values-grid,
   .team-grid,
   .certifications-grid {
     grid-template-columns: 1fr;
     gap: var(--spacing-lg);
   }
-  
+
   .about .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -460,21 +462,21 @@
   .about-hero .hero-title {
     font-size: 2rem;
   }
-  
+
   .mission-card,
   .vision-card {
     padding: var(--spacing-lg);
   }
-  
+
   .value-item,
   .cert-item {
     padding: var(--spacing-lg);
   }
-  
+
   .member-info {
     padding: var(--spacing-lg);
   }
-  
+
   .about .stats-grid {
     grid-template-columns: 1fr;
   }

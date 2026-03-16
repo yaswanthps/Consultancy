@@ -35,6 +35,8 @@ const Auth = ({ onLogin }) => {
 
             if (data.success) {
                 if (isLogin) {
+                    // Store user info
+                    localStorage.setItem('user', JSON.stringify(data.user));
                     onLogin('user');
                 } else {
                     setIsLogin(true);
@@ -90,6 +92,7 @@ const Auth = ({ onLogin }) => {
 
                 const data = await res.json();
                 if (data.success) {
+                    localStorage.setItem('user', JSON.stringify(data.user || { name: userInfo.name, email: userInfo.email }));
                     onLogin('user');
                 } else {
                     setError(data.message || 'Google login failed.');

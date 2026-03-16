@@ -40,6 +40,7 @@ const loadLocalOrders = () => {
 export const AdminProvider = ({ children }) => {
     const [products, setProducts] = useState(localLoad() || seedData);
     const [orders, setOrders] = useState(loadLocalOrders());
+    const [messages, setMessages] = useState([]);
     const [dbConnected, setDbConnected] = useState(false);
 
     // ---- Fetch products from backend on mount ----
@@ -70,12 +71,29 @@ export const AdminProvider = ({ children }) => {
                 if (oData.success && Array.isArray(oData.orders)) {
                     setOrders(oData.orders);
                 }
+
+                // 4. Fetch messages from DB
+                const mRes = await fetch(`${API}/api/admin/messages`);
+                const mData = await mRes.json();
+                if (mData.success && Array.isArray(mData.messages)) {
+                    setMessages(mData.messages);
+                }
             } catch {
                 // Backend offline — stay with localStorage data
             }
         };
         init();
     }, []);
+
+    const refreshMessages = async () => {
+        try {
+            const mRes = await fetch(`${API}/api/admin/messages`);
+            const mData = await mRes.json();
+            if (mData.success && Array.isArray(mData.messages)) {
+                setMessages(mData.messages);
+            }
+        } catch { }
+    };
 
     // ---- CRUD handlers ----
     const addProduct = useCallback(async (product) => {
@@ -144,8 +162,30 @@ export const AdminProvider = ({ children }) => {
         setOrders(prev => prev.map(o => (o._id === id || o.id === id) ? { ...o, orderStatus: newStatus } : o));
     }, [dbConnected]);
 
+    const deleteMessage = useCallback(async (id) => {
+        try {
+            if (dbConnected) {
+                await fetch(`${API}/api/admin/messages/${id}`, { method: 'DELETE' });
+                setMessages(prev => prev.filter(m => m._id !== id));
+            }
+        } catch { }
+    }, [dbConnected]);
+
+    const markMessageRead = useCallback(async (id) => {
+        try {
+            if (dbConnected) {
+                await fetch(`${API}/api/admin/messages/${id}/read`, { method: 'PUT' });
+                setMessages(prev => prev.map(m => m._id === id ? { ...m, status: 'read' } : m));
+            }
+        } catch { }
+    }, [dbConnected]);
+
     return (
-        <AdminContext.Provider value={{ products, orders, dbConnected, addProduct, updateProduct, deleteProduct, updateOrderStatus }}>
+        <AdminContext.Provider value={{
+            products, orders, messages, dbConnected,
+            addProduct, updateProduct, deleteProduct, updateOrderStatus,
+            deleteMessage, markMessageRead, refreshMessages
+        }}>
             {children}
         </AdminContext.Provider>
     );

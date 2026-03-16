@@ -6,7 +6,8 @@
 
 /* Projects Hero Section */
 .projects-hero {
-  padding: var(--spacing-xxl) 0;
+  padding: var(--spacing-lg) 0 var(--spacing-xl);
+  /* Reduced from xxl */
   background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
   text-align: center;
 }

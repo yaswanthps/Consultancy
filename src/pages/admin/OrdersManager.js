@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiSearch, FiRefreshCw } from 'react-icons/fi';
 import { useAdmin } from './AdminContext';
 
-const STATUS_OPTIONS = ['Processing', 'Shipped', 'Delivered', 'Cancelled'];
+const STATUS_OPTIONS = ['Placed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 
 const statusBadge = (s) => {
     if (s === 'Delivered') return 'badge-green';
@@ -52,7 +52,16 @@ const OrdersManager = () => {
     const filtered = orders.filter(o => {
         const matchStatus = filterStatus === 'All' || o.orderStatus === filterStatus;
         const name = `${o.customerInfo?.firstName || ''} ${o.customerInfo?.lastName || ''}`.toLowerCase();
-        const matchSearch = name.includes(search.toLowerCase()) || (o.customerInfo?.email || '').toLowerCase().includes(search.toLowerCase());
+        const email = (o.customerInfo?.email || '').toLowerCase();
+        const orderId = (o._id || o.id || '').toString().toLowerCase();
+        const shortId = orderId.slice(-8);
+
+        const term = search.toLowerCase();
+        const matchSearch = name.includes(term) ||
+            email.includes(term) ||
+            orderId.includes(term) ||
+            shortId.includes(term);
+
         return matchStatus && matchSearch;
     });
 
@@ -75,7 +84,7 @@ const OrdersManager = () => {
                         type="text"
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                        placeholder="Search by name or email..."
+                        placeholder="Search by ID, name, or email..."
                         style={{ flex: 1, maxWidth: 320, padding: '9px 12px', border: '1px solid #e2e8f0', borderRadius: '8px', outline: 'none', fontSize: '0.88rem' }}
                     />
                 </div>

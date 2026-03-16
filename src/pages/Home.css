@@ -12,7 +12,8 @@
 .home-hero {
   position: relative;
   min-height: 100vh;
-  padding: 8rem 0 6rem;
+  padding: 6rem 0 4rem;
+  /* Reduced from 8rem to compensate for layout padding */
   background: linear-gradient(120deg, rgba(5, 36, 47, 0.85), rgba(6, 79, 84, 0.75)), url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1920&h=1080&fit=crop');
   background-size: cover;
   background-position: center;

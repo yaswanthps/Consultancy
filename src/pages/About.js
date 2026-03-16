@@ -239,7 +239,7 @@ const About = () => {
       </section>
 
       {/* Team Section */}
-      <section className="team-section">
+      {/*<section className="team-section">
         <div className="container">
           <div className="section-header">
             <h2 className="section-title">Meet Our Team</h2>
@@ -267,7 +267,7 @@ const About = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Certifications */}
       <section className="certifications-section">

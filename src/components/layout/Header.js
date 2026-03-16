@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiMenu, FiX, FiSun, FiShoppingCart, FiLogOut } from 'react-icons/fi';
+import { FiMenu, FiX, FiSun, FiShoppingCart, FiLogOut, FiUser } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
 import './Header.css';
 
@@ -35,8 +35,7 @@ const Header = ({ onLogout }) => {
     { path: '/contact', label: 'Contact' }
   ];
 
-  const isHome = location.pathname === '/';
-  const headerClassName = `header ${isHome ? 'header--transparent' : 'header--solid'} ${isScrolled ? 'scrolled' : ''}`;
+  const headerClassName = `header header--solid ${isScrolled ? 'scrolled' : ''}`;
 
   return (
     <header className={headerClassName}>
@@ -59,6 +58,9 @@ const Header = ({ onLogout }) => {
                 {item.label}
               </Link>
             ))}
+            <Link to="/profile" className={`nav-link ${location.pathname === '/profile' ? 'active' : ''}`} style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <FiUser /> Profile
+            </Link>
             <Link to="/cart" className={`nav-link cart-icon-link ${location.pathname === '/cart' ? 'active' : ''}`}>
               <FiShoppingCart className="cart-icon" />
               {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
@@ -86,6 +88,13 @@ const Header = ({ onLogout }) => {
               {item.label}
             </Link>
           ))}
+          <Link
+            to="/profile"
+            className={`nav-link-mobile ${location.pathname === '/profile' ? 'active' : ''}`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Profile
+          </Link>
           <Link
             to="/cart"
             className={`nav-link-mobile ${location.pathname === '/cart' ? 'active' : ''}`}

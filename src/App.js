@@ -18,6 +18,8 @@ import ProductsManager from './pages/admin/ProductsManager';
 import OrdersManager from './pages/admin/OrdersManager';
 import Analytics from './pages/admin/Analytics';
 import AdminMessages from './pages/admin/AdminMessages';
+import UsersManager from './pages/admin/UsersManager';
+import Profile from './pages/Profile';
 import './App.css';
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     localStorage.removeItem('isAuth');
+    localStorage.removeItem('user');
   };
 
   const handleAdminLogout = () => {
@@ -47,6 +50,7 @@ function App() {
                 <Route path="/orders" element={<OrdersManager />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/messages" element={<AdminMessages />} />
+                <Route path="/users" element={<UsersManager />} />
               </Routes>
             </AdminLayout>
           ) : (
@@ -80,6 +84,7 @@ function App() {
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/checkout" element={<Checkout />} />
+                  <Route path="/profile" element={<Profile />} />
                 </Routes>
               </Layout>
             )

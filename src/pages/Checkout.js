@@ -32,6 +32,26 @@ const Checkout = () => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
+    // Pre-fill form from localStorage on mount
+    React.useEffect(() => {
+        // 1. Get user data for name/email
+        const userData = JSON.parse(localStorage.getItem('user') || 'null');
+        // 2. Get saved address for shipping info
+        const savedAddress = JSON.parse(localStorage.getItem('savedAddress') || 'null');
+
+        if (userData || savedAddress) {
+            setFormData(prev => ({
+                ...prev,
+                firstName: userData?.firstName || userData?.displayName?.split(' ')[0] || prev.firstName,
+                lastName: userData?.lastName || userData?.displayName?.split(' ').slice(1).join(' ') || prev.lastName,
+                email: userData?.email || prev.email,
+                address: savedAddress?.address || prev.address,
+                city: savedAddress?.city || prev.city,
+                zip: savedAddress?.zip || prev.zip
+            }));
+        }
+    }, []);
+
     // Calculate totals including mock shipping and tax
     const subtotal = getCartTotal();
     const shipping = subtotal > 0 ? 15.00 : 0;
@@ -92,7 +112,14 @@ const Checkout = () => {
             const result = await response.json();
 
             if (result.success) {
-                // 3. Show Success & Clear Cart
+                // 3. Save address for future autofill
+                localStorage.setItem('savedAddress', JSON.stringify({
+                    address: formData.address,
+                    city: formData.city,
+                    zip: formData.zip
+                }));
+
+                // 4. Show Success & Clear Cart
                 setIsProcessing(false);
                 setShowSuccessModal(true);
                 clearCart();
@@ -103,7 +130,7 @@ const Checkout = () => {
         } catch (error) {
             console.error('Checkout Error:', error);
             setIsProcessing(false);
-            alert('There was an error processing your order. Please ensure the backend server is running.');
+            alert(error.message || 'There was an error processing your order. Please ensure the backend server is running.');
         }
     };
 

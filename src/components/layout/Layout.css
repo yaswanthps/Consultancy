@@ -6,10 +6,12 @@
   flex-direction: column;
 }
 
+/* Standard offset for our fixed header to prevent overlap */
 .main-content {
   flex: 1;
   position: relative;
   z-index: 1;
+  padding-top: 60px;
 }
 
 /* Page transitions */

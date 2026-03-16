@@ -31,11 +31,18 @@ const Home = () => {
     }
   ];
 
+  const user = JSON.parse(localStorage.getItem('user') || 'null');
+
   return (
     <div className="home">
       <section className="home-hero">
         <div className="home-hero-content">
           <div className="home-hero-left">
+            {user && (
+              <div className="welcome-message" style={{ marginBottom: '1rem', color: '#3498db', fontWeight: '600', fontSize: '1.2rem' }}>
+                Welcome back, {user.name}!
+              </div>
+            )}
             <span className="home-hero-eyebrow">Precision manufacturing. Sustainable outcomes.</span>
             <h1 className="home-hero-title">
               Innovating Chemistry for a
@@ -76,7 +83,7 @@ const Home = () => {
       <section className="home-features">
         <div className="container">
           <div className="home-section-header">
-            
+
             <h2 className="section-title">Enterprise-ready chemistry for modern industry</h2>
             <p className="section-description">
               A premium, compliance-driven partner delivering performance, transparency, and sustainability.
