@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiPackage, FiUser, FiMapPin, FiCreditCard, FiSettings, FiHelpCircle } from 'react-icons/fi';
+import { API_BASE_URL } from '../api/config';
 import './Profile.css';
 
 const Profile = () => {
@@ -25,7 +26,7 @@ const Profile = () => {
     const fetchOrders = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`http://localhost:5000/api/orders?email=${user.email}`);
+            const response = await fetch(`${API_BASE_URL}/api/orders?email=${user.email}`);
             const data = await response.json();
             if (data.success) {
                 setOrders(data.orders);

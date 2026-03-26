@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { projects } from '../data/mockData';
-
-const API = 'http://localhost:5000';
+import { API_BASE_URL as API } from '../api/config';
 
 // Fallback seed from mockData
 const mockSeed = projects.map(p => ({

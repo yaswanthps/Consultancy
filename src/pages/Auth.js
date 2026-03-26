@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
+import { API_BASE_URL } from '../api/config';
 import './Auth.css';
 
 const Auth = ({ onLogin }) => {
@@ -23,7 +24,7 @@ const Auth = ({ onLogin }) => {
         }
 
         setIsLoading(true);
-        const url = isLogin ? 'http://localhost:5000/api/login' : 'http://localhost:5000/api/register';
+        const url = isLogin ? `${API_BASE_URL}/api/login` : `${API_BASE_URL}/api/register`;
 
         try {
             const response = await fetch(url, {
@@ -74,7 +75,7 @@ const Auth = ({ onLogin }) => {
 
                 // Step 2: Send to our backend
                 console.log('Sending to backend...');
-                const res = await fetch('http://localhost:5000/api/auth/google', {
+                const res = await fetch(`${API_BASE_URL}/api/auth/google`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

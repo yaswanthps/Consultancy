@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiSearch, FiRefreshCw } from 'react-icons/fi';
 import { useAdmin } from './AdminContext';
+import { API_BASE_URL } from '../../api/config';
 
 const STATUS_OPTIONS = ['Placed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 
@@ -23,7 +24,7 @@ const OrdersManager = () => {
 
     // Try to also fetch live orders from backend if available
     React.useEffect(() => {
-        fetch('http://localhost:5000/api/orders')
+        fetch(`${API_BASE_URL}/api/orders`)
             .then(r => r.json())
             .then(data => {
                 // Backend returns { success, orders: [...] }
@@ -36,7 +37,7 @@ const OrdersManager = () => {
     const updateStatus = async (id, newStatus) => {
         // Try backend first
         try {
-            await fetch(`http://localhost:5000/api/orders/${id}/status`, {
+            await fetch(`${API_BASE_URL}/api/orders/${id}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ orderStatus: newStatus })

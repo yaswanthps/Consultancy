@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiMail, FiPhone, FiMapPin, FiSend, FiUser, FiMessageSquare } from 'react-icons/fi';
 import HeroSection from '../components/HeroSection';
+import { API_BASE_URL } from '../api/config';
 import './Contact.css';
 
 const Contact = () => {
@@ -27,7 +28,7 @@ const Contact = () => {
     setSubmitMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact', {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

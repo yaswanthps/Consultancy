@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FiUsers, FiUserCheck, FiMail, FiCalendar } from 'react-icons/fi';
+import { API_BASE_URL } from '../../api/config';
 import './UsersManager.css';
 
 const UsersManager = () => {
@@ -10,7 +11,7 @@ const UsersManager = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/admin/users');
+                const response = await fetch(`${API_BASE_URL}/api/admin/users`);
                 const data = await response.json();
                 if (data.success) {
                     setUsers(data.users);

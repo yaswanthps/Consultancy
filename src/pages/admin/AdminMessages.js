@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiSearch, FiTrash2, FiMail, FiUser, FiCalendar, FiPhone, FiMessageCircle } from 'react-icons/fi';
 import { useAdmin } from './AdminContext';
+import { API_BASE_URL } from '../../api/config';
 
 const AdminMessages = () => {
     const { messages, dbConnected, deleteMessage, markMessageRead, refreshMessages } = useAdmin();
@@ -63,7 +64,7 @@ const AdminMessages = () => {
                     <FiMail size={40} style={{ marginBottom: '16px', opacity: 0.3 }} />
                     <p style={{ fontSize: '1.1rem', fontWeight: 500, margin: '0 0 10px 0' }}>No messages found.</p>
                     <p style={{ fontSize: '0.85rem' }}>
-                        Ensure your backend server is running at <code style={{ background: '#e2e8f0', padding: '2px 6px', borderRadius: '4px' }}>http://localhost:5000</code>
+                        Ensure your backend server is running at <code style={{ background: '#e2e8f0', padding: '2px 6px', borderRadius: '4px' }}>{API_BASE_URL}</code>
                     </p>
                     <div style={{ marginTop: '20px' }}>
                         <button onClick={refreshMessages} className="btn-admin-primary">Retry Connection</button>

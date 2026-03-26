@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { FiCheckCircle, FiCreditCard, FiLock, FiSmartphone, FiDollarSign } from 'react-icons/fi';
+import { API_BASE_URL } from '../api/config';
 import './Checkout.css';
 
 const Checkout = () => {
@@ -10,20 +11,16 @@ const Checkout = () => {
 
     const [isProcessing, setIsProcessing] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [paymentMethod, setPaymentMethod] = useState('card');
+    const [paymentMethod, setPaymentMethod] = useState('online');
 
-    // Form state (mock)
+    // Form state
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
         email: '',
         address: '',
         city: '',
-        zip: '',
-        cardNumber: '',
-        expiry: '',
-        cvv: '',
-        upiId: ''
+        zip: ''
     });
 
     // Handle form changes
@@ -70,7 +67,82 @@ const Checkout = () => {
 
         setIsProcessing(true);
 
-        // 1. Prepare the Order Data format expected by our new MongoDB Schema
+        if (paymentMethod === 'online') {
+            try {
+                // 1. Create Razorpay order on backend
+                const rzpResponse = await fetch(`${API_BASE_URL}/api/razorpay/order`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ amount: total })
+                });
+
+                const rzpData = await rzpResponse.json();
+                if (!rzpData.success) throw new Error('Failed to create Razorpay order');
+
+                // 2. Open Razorpay Checkout modal
+                const options = {
+                    key: 'YOUR_RAZORPAY_KEY_ID', // Replaced in backend, but frontend needs the public key to open the modal
+                    amount: rzpData.order.amount,
+                    currency: rzpData.order.currency,
+                    name: "Consultancy Store",
+                    description: "Order Payment",
+                    order_id: rzpData.order.id,
+                    handler: async function (response) {
+                        try {
+                            // 3. Verify Payment
+                            const verifyResponse = await fetch(`${API_BASE_URL}/api/razorpay/verify`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    razorpay_payment_id: response.razorpay_payment_id,
+                                    razorpay_signature: response.razorpay_signature
+                                })
+                            });
+
+                            const verifyData = await verifyResponse.json();
+                            if (verifyData.success) {
+                                // 4. Save order to MongoDB
+                                await submitOrderToBackend('Paid', 'Razorpay', response.razorpay_payment_id);
+                            } else {
+                                throw new Error('Payment verification failed');
+                            }
+                        } catch (err) {
+                            alert(err.message);
+                            setIsProcessing(false);
+                        }
+                    },
+                    prefill: {
+                        name: `${formData.firstName} ${formData.lastName}`,
+                        email: formData.email,
+                    },
+                    theme: { color: "#3399cc" },
+                    modal: {
+                        ondismiss: function () {
+                            setIsProcessing(false);
+                        }
+                    }
+                };
+
+                const rzpWindow = new window.Razorpay(options);
+                rzpWindow.on('payment.failed', function (response) {
+                    alert("Payment failed: " + response.error.description);
+                    setIsProcessing(false);
+                });
+                rzpWindow.open();
+            } catch (error) {
+                console.error('Razorpay Error:', error);
+                alert(error.message);
+                setIsProcessing(false);
+            }
+        } else {
+            // COD Option
+            await submitOrderToBackend('Pending', 'cod', null);
+        }
+    };
+
+    // Helper to submit the final order to MongoDB
+    const submitOrderToBackend = async (status, method, paymentId = null) => {
         const orderData = {
             customerInfo: {
                 firstName: formData.firstName,
@@ -88,8 +160,9 @@ const Checkout = () => {
                 volume: item.volume
             })),
             payment: {
-                method: paymentMethod
-                // Status will be handled by backend ('Pending' or 'Paid')
+                method: method,
+                status: status,
+                ...(paymentId && { paymentId })
             },
             totals: {
                 subtotal: subtotal,
@@ -100,33 +173,24 @@ const Checkout = () => {
         };
 
         try {
-            // 2. Send the Order Data to our new Express API Route
-            const response = await fetch('http://localhost:5000/api/orders', {
+            const response = await fetch(`${API_BASE_URL}/api/orders`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(orderData)
             });
 
             const result = await response.json();
 
             if (result.success) {
-                // 3. Save address for future autofill
                 localStorage.setItem('savedAddress', JSON.stringify({
-                    address: formData.address,
-                    city: formData.city,
-                    zip: formData.zip
+                    address: formData.address, city: formData.city, zip: formData.zip
                 }));
-
-                // 4. Show Success & Clear Cart
                 setIsProcessing(false);
                 setShowSuccessModal(true);
                 clearCart();
             } else {
                 throw new Error(result.message || 'Failed to place order');
             }
-
         } catch (error) {
             console.error('Checkout Error:', error);
             setIsProcessing(false);
@@ -203,26 +267,15 @@ const Checkout = () => {
                         <div className="checkout-panel payment-panel">
                             <h2>Payment Method</h2>
                             <div className="payment-options">
-                                <label className={`payment-option ${paymentMethod === 'card' ? 'selected' : ''}`}>
+                                <label className={`payment-option ${paymentMethod === 'online' ? 'selected' : ''}`}>
                                     <input
                                         type="radio"
                                         name="paymentMethod"
-                                        value="card"
-                                        checked={paymentMethod === 'card'}
-                                        onChange={() => setPaymentMethod('card')}
+                                        value="online"
+                                        checked={paymentMethod === 'online'}
+                                        onChange={() => setPaymentMethod('online')}
                                     />
-                                    <span><FiCreditCard size={20} style={{ marginRight: '10px' }} /> Credit / Debit Card</span>
-                                </label>
-
-                                <label className={`payment-option ${paymentMethod === 'upi' ? 'selected' : ''}`} style={{ marginTop: '10px' }}>
-                                    <input
-                                        type="radio"
-                                        name="paymentMethod"
-                                        value="upi"
-                                        checked={paymentMethod === 'upi'}
-                                        onChange={() => setPaymentMethod('upi')}
-                                    />
-                                    <span><FiSmartphone size={20} style={{ marginRight: '10px' }} /> UPI (Google Pay, PhonePe, Paytm)</span>
+                                    <span><FiCreditCard size={20} style={{ marginRight: '10px' }} /> Pay Online (Razorpay)</span>
                                 </label>
 
                                 <label className={`payment-option ${paymentMethod === 'cod' ? 'selected' : ''}`} style={{ marginTop: '10px' }}>
@@ -237,33 +290,10 @@ const Checkout = () => {
                                 </label>
                             </div>
 
-                            {paymentMethod === 'card' && (
+                            {paymentMethod === 'online' && (
                                 <div className="card-details-box fade-in-up">
-                                    <div className="form-group">
-                                        <label>Card Number*</label>
-                                        <input type="text" name="cardNumber" required value={formData.cardNumber} onChange={handleChange} placeholder="0000 0000 0000 0000" maxLength="19" />
-                                    </div>
-                                    <div className="form-row-2">
-                                        <div className="form-group">
-                                            <label>Expiry Date*</label>
-                                            <input type="text" name="expiry" required value={formData.expiry} onChange={handleChange} placeholder="MM/YY" maxLength="5" />
-                                        </div>
-                                        <div className="form-group">
-                                            <label>CVV*</label>
-                                            <input type="text" name="cvv" required value={formData.cvv} onChange={handleChange} placeholder="123" maxLength="4" />
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
-                            {paymentMethod === 'upi' && (
-                                <div className="card-details-box fade-in-up">
-                                    <div className="form-group">
-                                        <label>Enter your UPI ID*</label>
-                                        <input type="text" name="upiId" required value={formData.upiId} onChange={handleChange} placeholder="username@upi or mobile@paytm" />
-                                    </div>
-                                    <p style={{ fontSize: '0.9rem', color: 'var(--medium-gray)', marginTop: '10px' }}>
-                                        A payment request will be sent to your UPI app. Please approve it to complete the order.
+                                    <p style={{ fontSize: '0.9rem', color: 'var(--medium-gray)', marginTop: '5px' }}>
+                                        You will be redirected to the secure Razorpay gateway to complete your payment using Cards, UPI, Netbanking, or Wallets.
                                     </p>
                                 </div>
                             )}

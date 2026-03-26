@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // Loads the variables from .env
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') }); // Loads the variables from .env in the same directory as this file
+const Razorpay = require('razorpay');
+const crypto = require('crypto');
 
 const app = express();
 
@@ -344,6 +347,57 @@ app.post('/api/products/seed', async (req, res) => {
         res.json({ success: true, message: `Seeded ${products.length} products.` });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Seed failed.' });
+    }
+});
+
+// ==========================================
+// RAZORPAY INTEGRATION ROUTES
+// ==========================================
+
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID || 'YOUR_RAZORPAY_KEY_ID',
+    key_secret: process.env.RAZORPAY_KEY_SECRET || 'YOUR_RAZORPAY_KEY_SECRET',
+});
+
+// CREATE a Razorpay Order
+app.post('/api/razorpay/order', async (req, res) => {
+    try {
+        const { amount } = req.body; // Amount in INR
+
+        const options = {
+            amount: Math.round(amount * 100), // Razorpay expects amount in paise
+            currency: 'INR',
+            receipt: 'receipt_' + Date.now(),
+        };
+
+        const order = await razorpay.orders.create(options);
+        res.json({ success: true, order });
+    } catch (error) {
+        console.error('Error creating Razorpay order:', error);
+        res.status(500).json({ success: false, message: 'Failed to create Razorpay order' });
+    }
+});
+
+// VERIFY a Razorpay Payment
+app.post('/api/razorpay/verify', (req, res) => {
+    try {
+        const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+        const body = razorpay_order_id + "|" + razorpay_payment_id;
+        const expectedSignature = crypto
+            .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET || 'YOUR_RAZORPAY_KEY_SECRET')
+            .update(body.toString())
+            .digest('hex');
+
+        const isAuthentic = expectedSignature === razorpay_signature;
+
+        if (isAuthentic) {
+            res.json({ success: true, message: 'Payment verified successfully' });
+        } else {
+            res.status(400).json({ success: false, message: 'Invalid payment signature' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: 'Server error during verification' });
     }
 });
 

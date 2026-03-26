@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { projects } from '../../data/mockData';
-
-const API = 'http://localhost:5000';
+import { API_BASE_URL as API } from '../../api/config';
 
 const AdminContext = createContext();
 
