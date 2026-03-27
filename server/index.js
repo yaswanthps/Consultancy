@@ -177,6 +177,29 @@ app.post('/api/login', async (req, res) => {
     }
 });
 
+// Forgot Password implementation (Mock/Simplified)
+app.post('/api/forgot-password', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            // Prevent email enumeration
+            return res.json({ success: true, message: 'If this email exists, a password reset link has been sent.' });
+        }
+
+        // Simple mock implementation: Reset password directly to a temporary standard password
+        // In reality, this should generate a secure token and send an email link.
+        user.password = 'Reset1234';
+        await user.save();
+
+        res.json({ success: true, message: 'Your password has been temporarily reset to: Reset1234. Please login using this password.' });
+    } catch (error) {
+        console.error('Forgot password error:', error);
+        res.status(500).json({ success: false, message: 'Server error during password reset.' });
+    }
+});
+
 // Google OAuth login / register
 app.post('/api/auth/google', async (req, res) => {
     try {
