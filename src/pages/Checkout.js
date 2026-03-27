@@ -81,7 +81,7 @@ const Checkout = () => {
 
                 // 2. Open Razorpay Checkout modal
                 const options = {
-                    key: 'YOUR_RAZORPAY_KEY_ID', // Replaced in backend, but frontend needs the public key to open the modal
+                    key: 'rzp_test_SW7Z8HpLv2Tfqy', // Hardcoded public key to ensure immediate functionality
                     amount: rzpData.order.amount,
                     currency: rzpData.order.currency,
                     name: "Consultancy Store",
