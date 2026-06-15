@@ -39,8 +39,8 @@ const Header = () => {
       <nav className="nav">
         <div className="nav-container">
           {/* Logo */}
-          <Link to="/" className="nav-logo" style={{ padding: '0.5rem 0' }}>
-            <img src={logo} alt="SurfauxDyeChem Logo" className="logo-img" style={{ height: '45px', width: 'auto' }} />
+          <Link to="/" className="nav-logo" style={{ padding: '0.5rem 0', maxWidth: '75vw' }}>
+            <img src={logo} alt="SurfauxDyeChem Logo" className="logo-img" style={{ maxHeight: '45px', width: '100%', objectFit: 'contain', objectPosition: 'left' }} />
           </Link>
 
           {/* Desktop Navigation */}
