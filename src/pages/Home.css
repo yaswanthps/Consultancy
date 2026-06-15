@@ -64,7 +64,7 @@
 
 .home-hero-title {
   font-family: var(--font-family-display);
-  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  font-size: clamp(2rem, 5vw, 4rem);
   font-weight: 700;
   line-height: 1.1;
   margin: 0;
@@ -197,7 +197,7 @@
    ============================================= */
 
 .home-applications {
-  padding: 5rem 0;
+  padding: var(--spacing-xxl) 0;
   background-color: #eef6ed;
 }
 
@@ -515,7 +515,8 @@
 
 @media (max-width: 768px) {
   .home-hero {
-    padding: 7rem 0 5rem;
+    padding: 5rem 0 3rem;
+    min-height: auto;
     background-attachment: scroll;
   }
 
@@ -527,15 +528,20 @@
     width: 100%;
     justify-content: center;
   }
+
+  .home-hero-left {
+    align-items: center;
+    text-align: center;
+  }
 }
 
 @media (max-width: 480px) {
   .home-hero-title {
-    font-size: 2.4rem;
+    font-size: 2rem;
   }
 
   .home-cta-card {
-    padding: 2rem;
+    padding: 1.5rem;
   }
 }
 
@@ -552,7 +558,7 @@
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-xl);
 }
 
@@ -639,7 +645,7 @@
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-xl);
 }
 
@@ -729,7 +735,7 @@
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-xl);
 }
 
@@ -788,7 +794,7 @@
 
 .blog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-xl);
 }
 
