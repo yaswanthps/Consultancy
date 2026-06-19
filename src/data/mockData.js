@@ -89,7 +89,7 @@ export const applications = [
 export const projects = [
   {
     id: 1,
-    title: "100% POLYESTER FABRIC / YARN / FIBER",
+    title: "ReactEVO®",
     description: "Converting ocean waste into valuable chemical feedstocks",
     image: "/images/polyester-fabric.webp",
     category: "Circular Economy",
@@ -99,7 +99,7 @@ export const projects = [
   },
   {
     id: 2,
-    title: "PES/CO/Elastane Blends",
+    title: "REVECOL®",
     description: "First carbon-neutral chemical production facility",
     image: "/images/elastane-blend-fabric.jpg",
     category: "Clean Technology",
@@ -109,7 +109,7 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Polyester / Cotton Blends",
+    title: "ReactEVO® TWE Conc",
     description: "Revolutionary bio-based textile treatment solutions",
     image: "/images/polycotton-blend-fabric.jpg",
     category: "Sustainable Materials",
@@ -119,7 +119,7 @@ export const projects = [
   },
   {
     id: 4,
-    title: "100% Cellulosic (Medium to Dark Shades)",
+    title: "Laucol ASP",
     description: "Converting agricultural residues into high-value chemicals",
     image: "/images/cellulosic-dark-fabric-hd.jpg",
     category: "Resource Recovery",
@@ -129,7 +129,7 @@ export const projects = [
   },
   {
     id: 5,
-    title: "100% Cellulosic (Light Shades)",
+    title: "REVECOL® XT",
     description: "Next-generation environmentally safe industrial solvents",
     image: "/images/cellulosic-light-fabric.jpg",
     category: "Chemical Innovation",
@@ -258,35 +258,11 @@ export const blogPosts = [
 export const teamMembers = [
   {
     id: 1,
-    name: "Dr. Sarah Green",
-    position: "Chief Technology Officer",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop",
-    bio: "Leading expert in green chemistry with over 15 years of experience in sustainable chemical processes.",
-    expertise: ["Green Chemistry", "Process Design", "Innovation"]
-  },
-  {
-    id: 2,
-    name: "Prof. Michael Chen",
-    position: "Head of Research & Development",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop",
-    bio: "Renowned researcher in circular economy applications and sustainable manufacturing.",
-    expertise: ["Circular Economy", "Materials Science", "Sustainability"]
-  },
-  {
-    id: 3,
-    name: "Dr. Emily Rodriguez",
-    position: "Director of Sustainability",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop",
-    bio: "Environmental scientist focused on lifecycle assessment and sustainable product development.",
-    expertise: ["LCA", "Environmental Impact", "Sustainable Development"]
-  },
-  {
-    id: 4,
-    name: "Dr. James Park",
-    position: "Senior Process Engineer",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop",
-    bio: "Specialist in clean technology and process optimization for chemical manufacturing.",
-    expertise: ["Process Engineering", "Clean Technology", "Optimization"]
+    name: "Kumar Narayanan",
+    position: "Managing Director",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop",
+    bio: "Visionary leader driving sustainable innovation and strategic growth.",
+    expertise: ["Leadership", "Strategy", "Sustainable Development"]
   }
 ];
 

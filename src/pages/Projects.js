@@ -25,50 +25,12 @@ const Projects = () => {
               Sustainable <span className="text-accent">Project Portfolio</span>
             </h1>
             <p className="hero-description">
-              Discover our innovative projects that are transforming industries
-              and creating a more sustainable future. Each project demonstrates
-              our commitment to environmental excellence and technological innovation.
+              Tries to access devices in network range
             </p>
           </div>
         </div>
       </section>
 
-      {/* Filter Section */}
-      {/*<section className="filter-section">
-        <div className="container">
-          <div className="filters">
-            <div className="filter-group">
-              <label>Category:</label>
-              <div className="filter-buttons">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    className={`filter-btn ${selectedFilter === category ? 'active' : ''}`}
-                    onClick={() => setSelectedFilter(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="filter-group">
-              <label>Status:</label>
-              <div className="filter-buttons">
-                {statuses.map((status) => (
-                  <button
-                    key={status}
-                    className={`filter-btn ${selectedStatus === status ? 'active' : ''}`}
-                    onClick={() => setSelectedStatus(status)}
-                  >
-                    {status}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-*/}
       {/* Projects Grid */}
       <section className="projects-grid-section">
         <div className="container">
@@ -96,34 +58,7 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Project Stats */}
-      <section className="project-stats">
-        <div className="container">
-          <h2 className="section-title">Project Impact</h2>
-          <div className="stats-grid">
-            <div className="stat-item">
-              <div className="stat-icon">🌱</div>
-              <div className="stat-number">2.5M</div>
-              <div className="stat-label">Tons CO₂ Reduced</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-icon">♻️</div>
-              <div className="stat-number">1.8M</div>
-              <div className="stat-label">Tons Waste Diverted</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-icon">💧</div>
-              <div className="stat-number">500M</div>
-              <div className="stat-label">Gallons Water Saved</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-icon">⚡</div>
-              <div className="stat-number">85%</div>
-              <div className="stat-label">Energy Reduction</div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Success Stories */}
       <section className="success-stories">

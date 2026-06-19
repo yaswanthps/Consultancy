@@ -242,9 +242,9 @@ const About = () => {
       <section className="team-section">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">Meet Our Team</h2>
+            <h2 className="section-title">Leadership</h2>
             <p className="section-description">
-              Our world-class team of experts drives innovation in sustainable chemistry
+              Guided by visionary leadership to drive innovation in sustainable chemistry
             </p>
           </div>
           <div className="team-grid">

@@ -6,8 +6,10 @@ import './ProductDetail.css';
 
 // Chemical information for each product - moved outside component to be static
 const chemicalInfo = {
-    1: { // 100% POLYESTER FABRIC / YARN / FIBER
-        title: "100% POLYESTER FABRIC / YARN / FIBER",
+    1: { // ReactEVO®
+        title: "ReactEVO®",
+        category: "Post-Treatment Process for Reactive Dyeing",
+        whatItDoes: "A radically new post-treatment concept for reactive dyestuffs that drastically reduces energy consumption, water volumes, total treatment time, and CO₂ emissions.",
         overview: "Our specialized chemical solutions for 100% polyester fabrics, yarns, and fibers deliver exceptional dyeing performance while minimizing environmental impact. These formulations are designed for high-temperature dyeing processes typical of polyester materials.",
         chemicals: [
             {
@@ -31,12 +33,10 @@ const chemicalInfo = {
                 benefits: ["Stable pH control", "Reduced chemical consumption", "Improved process efficiency", "Lower environmental impact"]
             }
         ],
-        applications: [
-            "Sportswear and activewear fabrics",
-            "Home textiles and upholstery",
-            "Industrial textiles",
-            "Fashion and apparel",
-            "Technical textiles"
+        keyBenefits: [
+            "Massive cuts in energy & water use",
+            "Shorter processing times",
+            "Lower carbon footprint"
         ],
         technicalSpecs: {
             temperature: "120-135°C",
@@ -44,16 +44,17 @@ const chemicalInfo = {
             dyeingTime: "45-60 minutes",
             waterSavings: "Up to 40% compared to traditional methods"
         },
-        sustainability: [
-            "Zero discharge of hazardous chemicals (ZDHC compliant)",
-            "Reduced water consumption by 40%",
-            "Energy-efficient low-temperature alternatives available",
-            "Biodegradable auxiliaries",
-            "Recycled polyester compatible"
-        ]
+        certifications: [
+            "Oeko-Tex Standard 100",
+            "GOTS",
+            "Bluesign® approved"
+        ],
+        footerMessage: "Textile dyers looking to optimize reactive dyeing sustainably"
     },
-    2: { // PES/CO/Elastane Blends
-        title: "PES/CO/Elastane Blends",
+    2: { // REVECOL®
+        title: "REVECOL®",
+        category: "Circular Chemical Auxiliaries",
+        whatItDoes: "A breakthrough innovation that upcycles critical waste material (used vegetable/exhausted cooking oils) into a full range of next-gen chemical auxiliaries for the entire textile industry.",
         overview: "Our cutting-edge chemical formulations for PES/CO/Elastane blends address the unique challenges of dyeing multi-fiber fabrics. These solutions ensure uniform color across different fiber types while maintaining fabric elasticity and performance.",
         chemicals: [
             {
@@ -77,29 +78,26 @@ const chemicalInfo = {
                 benefits: ["Gentle on elastane", "Effective dye removal", "Environmentally safe", "Improved wash fastness"]
             }
         ],
-        applications: [
-            "Athletic and performance wear",
-            "Stretch denim and casual wear",
-            "Yoga and fitness apparel",
-            "Compression garments",
-            "Shapewear and intimate apparel"
+        keyBenefits: [
+            "100% Made in Italy",
+            "Upcycled raw materials (bio-circular)",
+            "CO₂ reduction of 30–72% vs conventional chemistry",
+            "High performance & market competitive"
         ],
-        technicalSpecs: {
-            temperature: "100-130°C (optimized for elastane protection)",
-            pH: "5.0-6.0",
-            dyeingTime: "60-90 minutes",
-            waterSavings: "Up to 35% with optimized processes"
-        },
-        sustainability: [
-            "Elastane-safe formulations",
-            "Reduced processing steps",
-            "Lower energy consumption",
-            "OEKO-TEX certified chemicals",
-            "Minimal effluent generation"
-        ]
+        certifications: [
+            "ISCC PLUS",
+            "GRS",
+            "RCS",
+            "ZDHC",
+            "Bluesign®",
+            "GOTS"
+        ],
+        footerMessage: "Brands pursuing 360° sustainability and circularity."
     },
-    3: { // Polyester / Cotton Blends
-        title: "Polyester / Cotton Blends",
+    3: { // ReactEVO® TWE Conc
+        title: "ReactEVO® TWE Conc",
+        category: "Modified Polymer for ReactEVO® Post-Treatment Process",
+        whatItDoes: "A modified polymer specifically designed for the ReactEVO® process, applied at 45°C to deliver high wet fastness even after repeated washings — with no impairment on light fastness.",
         overview: "Our poly-cotton blend dyeing solutions provide exceptional color uniformity across both fiber types. These eco-friendly formulations are designed to achieve perfect color matching while reducing environmental impact and processing costs.",
         chemicals: [
             {
@@ -123,29 +121,24 @@ const chemicalInfo = {
                 benefits: ["Stable in alkaline pH", "Prevents dye aggregation", "Improved levelness", "Enhanced color yield"]
             }
         ],
-        applications: [
-            "Workwear and uniforms",
-            "Bed linens and home textiles",
-            "Casual apparel and shirts",
-            "Medical and healthcare textiles",
-            "Hospitality and institutional textiles"
+        keyBenefits: [
+            "High wet fastness that holds up through repeated washings",
+            "No negative impact on light fastness",
+            "High stability with residual hydrolyzed dyes — no staining of machinery even after repeated treatments",
+            "10% color yield improvement",
+            "Nearly 100% exhaustion rate — no residual product left in the bath at the end of the process"
         ],
-        technicalSpecs: {
-            temperature: "130°C (HT method) or 100°C (two-bath method)",
-            pH: "10.5-11.5 (reactive phase), 4.5-5.5 (disperse phase)",
-            dyeingTime: "90-120 minutes (single bath) or 60+60 minutes (two-bath)",
-            waterSavings: "Up to 50% with single-bath process"
-        },
-        sustainability: [
-            "Single-bath dyeing option reduces water usage",
-            "Low-salt reactive dye systems available",
-            "Biodegradable auxiliaries",
-            "Energy-efficient processing",
-            "Reduced chemical consumption"
-        ]
+        certifications: [
+            "ZDHC Gateway listed",
+            "Bluesign® approved",
+            "GOTS approved"
+        ],
+        footerMessage: "Textile dyers optimizing reactive dyeing with maximum efficiency and minimal waste."
     },
-    4: { // 100% Cellulosic (Medium to Dark Shades)
-        title: "100% Cellulosic (Medium to Dark Shades)",
+    4: { // Laucol ASP
+        title: "Laucol ASP",
+        category: "REVECOL® Circular Chemical Auxiliary",
+        whatItDoes: "Part of the REVECOL® range — a new generation of chemical auxiliaries synthesized from upcycled exhausted vegetable cooking oil (UCO) under a mass balance approach.",
         overview: "Our advanced chemical solutions for cellulosic fibers (cotton, viscose, modal, lyocell) in medium to dark shades deliver exceptional color depth and brilliance. These formulations are optimized for achieving rich, deep colors with excellent wash and light fastness.",
         chemicals: [
             {
@@ -169,29 +162,26 @@ const chemicalInfo = {
                 benefits: ["Prevents shade dulling", "Consistent color reproduction", "Improved dye performance", "Better water quality"]
             }
         ],
-        applications: [
-            "Denim and dark casual wear",
-            "Dark-colored home textiles",
-            "Fashion apparel in deep shades",
-            "Towels and bathrobes",
-            "Dark-colored bed linens"
+        keyBenefits: [
+            "Made from bio-circular upcycled raw materials",
+            "Part of the world's first ISCC PLUS certified textile auxiliaries line",
+            "Significantly reduced carbon footprint vs. conventional chemistry",
+            "High performance and market competitive",
+            "Applicable across the full textile production cycle"
         ],
-        technicalSpecs: {
-            temperature: "60-80°C",
-            pH: "10.5-11.5",
-            dyeingTime: "60-90 minutes",
-            waterSavings: "Up to 60% with low-salt systems"
-        },
-        sustainability: [
-            "Low-salt dyeing technology",
-            "Reduced water consumption",
-            "Energy-efficient cold pad-batch option",
-            "Biodegradable chemicals",
-            "Zero harmful discharge"
-        ]
+        certifications: [
+            "ISCC PLUS",
+            "ZDHC Chemical Gateway",
+            "Bluesign® approved",
+            "GOTS approved",
+            "GRS certified"
+        ],
+        footerMessage: "Sustainable textile pre-treatment, dyeing, and finishing processes seeking verified circular chemistry."
     },
-    5: { // 100% Cellulosic (Light Shades)
-        title: "100% Cellulosic (Light Shades)",
+    5: { // REVECOL® XT
+        title: "REVECOL® XT",
+        category: "Circular Chemical Auxiliary (REVECOL® Range)",
+        whatItDoes: "A certified, high-performance chemical auxiliary from the REVECOL® line, produced from upcycled vegetable exhausted cooking oil via a 100% Made in Italy process.",
         overview: "Our specialized chemical formulations for light shade dyeing of cellulosic fibers ensure exceptional brightness, clarity, and uniformity. These solutions are designed to achieve delicate pastel shades with minimal chemical usage and maximum sustainability.",
         chemicals: [
             {
@@ -215,26 +205,21 @@ const chemicalInfo = {
                 benefits: ["Gentler on fibers", "Reduced chemical consumption", "Better fabric hand feel", "Energy savings"]
             }
         ],
-        applications: [
-            "Baby clothing and infant wear",
-            "Light-colored bed linens",
-            "Pastel fashion apparel",
-            "White and light towels",
-            "Delicate intimate apparel"
+        keyBenefits: [
+            "100% Made in Italy with certified sustainable DNA",
+            "Upcycled from critical waste material (used vegetable oil)",
+            "End-to-end certification and full traceability",
+            "High performance on every kind of fiber — both virgin and recycled",
+            "Part of a range with 30–72% CO₂ reduction vs. conventional alternatives"
         ],
-        technicalSpecs: {
-            temperature: "40-60°C (low-temperature options available)",
-            pH: "9.5-10.5 (reduced alkali systems)",
-            dyeingTime: "45-60 minutes",
-            waterSavings: "Up to 70% with optimized processes"
-        },
-        sustainability: [
-            "Ultra-low salt consumption",
-            "Reduced alkali usage",
-            "Cold dyeing options available",
-            "Minimal environmental impact",
-            "GOTS and OEKO-TEX compliant"
-        ]
+        certifications: [
+            "ISCC PLUS",
+            "ZDHC Chemical Gateway",
+            "Bluesign® approved",
+            "GOTS approved",
+            "GRS certified"
+        ],
+        footerMessage: "Brands and finishers aiming for 360° sustainability with verified circular inputs across all fiber types."
     }
 };
 
@@ -335,6 +320,7 @@ const ProductDetail = () => {
                         <h2 className="section-title">Overview</h2>
                         <div className="title-underline"></div>
                     </div>
+
                     <p className="overview-text">{detailedInfo.overview}</p>
                 </div>
             </section>
@@ -373,60 +359,55 @@ const ProductDetail = () => {
                 </div>
             </section>
 
-            {/* Technical Specifications */}
+            {/* Product Profile Section (Replacing Technical Specs) */}
+            {(detailedInfo.category || detailedInfo.whatItDoes) && (
             <section className="technical-section">
                 <div className="container">
                     <div className="section-header">
-                        <h2 className="section-title">Technical Specifications</h2>
+                        <h2 className="section-title">Product Profile</h2>
                         <div className="title-underline"></div>
                     </div>
-                    <div className="specs-grid">
-                        <div className="spec-card">
-                            <div className="spec-icon">
-                                <FiThermometer />
+                    <div className="product-profile-card">
+                        {detailedInfo.category && (
+                            <div className="profile-item">
+                                <div className="profile-icon">🏷️</div>
+                                <div className="profile-content">
+                                    <span className="profile-label">Category</span>
+                                    <span className="profile-value">{detailedInfo.category}</span>
+                                </div>
                             </div>
-                            <h3 className="spec-label">Temperature</h3>
-                            <p className="spec-value">{detailedInfo.technicalSpecs.temperature}</p>
-                        </div>
-                        <div className="spec-card">
-                            <div className="spec-icon">
-                                <span className="ph-icon">pH</span>
+                        )}
+                        {detailedInfo.whatItDoes && (
+                            <div className="profile-item">
+                                <div className="profile-icon">⚡</div>
+                                <div className="profile-content">
+                                    <span className="profile-label">What It Does</span>
+                                    <span className="profile-value">{detailedInfo.whatItDoes}</span>
+                                </div>
                             </div>
-                            <h3 className="spec-label">pH Range</h3>
-                            <p className="spec-value">{detailedInfo.technicalSpecs.pH}</p>
-                        </div>
-                        <div className="spec-card">
-                            <div className="spec-icon">
-                                <FiClock />
-                            </div>
-                            <h3 className="spec-label">Dyeing Time</h3>
-                            <p className="spec-value">{detailedInfo.technicalSpecs.dyeingTime}</p>
-                        </div>
-                        <div className="spec-card">
-                            <div className="spec-icon">
-                                <FiDroplet />
-                            </div>
-                            <h3 className="spec-label">Water Savings</h3>
-                            <p className="spec-value">{detailedInfo.technicalSpecs.waterSavings}</p>
-                        </div>
+                        )}
                     </div>
                 </div>
             </section>
+            )}
 
-            {/* Applications Section */}
+            {/* Applications / Key Benefits Section */}
+            {(detailedInfo.applications || detailedInfo.keyBenefits) && (
             <section className="applications-section">
                 <div className="container">
                     <div className="content-grid">
                         <div className="applications-content">
                             <div className="section-header">
-                                <h2 className="section-title">Applications</h2>
+                                <h2 className="section-title">
+                                    {detailedInfo.keyBenefits ? "Key Benefits" : "Applications"}
+                                </h2>
                                 <div className="title-underline"></div>
                             </div>
                             <ul className="applications-list">
-                                {detailedInfo.applications.map((application, index) => (
+                                {(detailedInfo.keyBenefits || detailedInfo.applications).map((item, index) => (
                                     <li key={index} className="application-item">
                                         <FiCheckCircle className="app-icon" />
-                                        <span>{application}</span>
+                                        <span>{item}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -434,32 +415,38 @@ const ProductDetail = () => {
                         <div className="applications-image">
                             <img
                                 src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&h=400&fit=crop"
-                                alt="Textile Applications"
+                                alt={detailedInfo.keyBenefits ? "Key Benefits" : "Textile Applications"}
                             />
                         </div>
                     </div>
                 </div>
             </section>
+            )}
 
-            {/* Sustainability Section */}
+            {/* Sustainability / Certifications Section */}
+            {(detailedInfo.sustainability || detailedInfo.certifications) && (
             <section className="sustainability-section">
                 <div className="container">
                     <div className="content-grid reverse">
                         <div className="sustainability-image">
                             <img
-                                src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600&h=400&fit=crop"
-                                alt="Sustainability Features"
+                                src={detailedInfo.certifications ? "/images/eco-certifications.png" : "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&h=400&fit=crop"}
+                                alt={detailedInfo.certifications ? "Certifications" : "Sustainability Features"}
                             />
                         </div>
                         <div className="sustainability-content">
                             <div className="section-header">
-                                <h2 className="section-title">Sustainability Features</h2>
+                                <h2 className="section-title">
+                                    {detailedInfo.certifications ? "Certifications" : "Sustainability Features"}
+                                </h2>
                                 <div className="title-underline"></div>
                             </div>
                             <ul className="sustainability-list">
-                                {detailedInfo.sustainability.map((feature, index) => (
+                                {(detailedInfo.certifications || detailedInfo.sustainability).map((feature, index) => (
                                     <li key={index} className="sustainability-item">
-                                        <div className="sustainability-icon">🌱</div>
+                                        <div className="sustainability-icon">
+                                            {detailedInfo.certifications ? "🏆" : "🌱"}
+                                        </div>
                                         <span>{feature}</span>
                                     </li>
                                 ))}
@@ -468,6 +455,25 @@ const ProductDetail = () => {
                     </div>
                 </div>
             </section>
+            )}
+
+            {/* Footer Message Section */}
+            {detailedInfo.footerMessage && (
+            <section className="footer-message-section" style={{ padding: "4rem 0", backgroundColor: "var(--bg-light)" }}>
+                <div className="container">
+                    <p style={{ 
+                        fontSize: "1.5rem", 
+                        textAlign: "center", 
+                        color: "var(--primary-color)",
+                        fontWeight: "500",
+                        maxWidth: "800px",
+                        margin: "0 auto"
+                    }}>
+                        {detailedInfo.footerMessage}
+                    </p>
+                </div>
+            </section>
+            )}
 
             {/* CTA Section */}
             <section className="cta-section">
