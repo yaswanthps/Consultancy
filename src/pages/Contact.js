@@ -29,7 +29,7 @@ const Contact = () => {
     setSubmitMessage('');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/yaswanthyas361@gmail.com', {
+      const response = await fetch('https://formsubmit.co/ajax/erca@surfauxdye.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,7 +37,8 @@ const Contact = () => {
         },
         body: JSON.stringify({
           ...formData,
-          _subject: `New Contact Form Submission from ${formData.name}`,
+          _subject: `Message from ${formData.name}`,
+          _template: 'table',
         }),
       });
 
