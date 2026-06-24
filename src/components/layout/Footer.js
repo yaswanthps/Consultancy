@@ -19,7 +19,7 @@ const Footer = () => {
             solutions for industrial clients worldwide.
           </p>
           <div className="footer-social">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="social-link">
+            <a href="https://www.linkedin.com/in/surfaux-dye-chem-188568371?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="social-link">
               <FiLinkedin />
             </a>
             <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-link">

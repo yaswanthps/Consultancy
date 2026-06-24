@@ -1,61 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiSun, FiTarget, FiAward, FiUsers, FiGlobe } from 'react-icons/fi';
-import { teamMembers, companyStats } from '../data/mockData';
+import { teamMembers } from '../data/mockData';
 import './About.css';
 
-// Helper component for animated numbers
-const AnimatedNumber = ({ number }) => {
-  const numericValue = parseInt(number.replace(/[^0-9]/g, ''), 10);
-  const suffix = number.replace(/[0-9]/g, '');
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const elementRef = React.useRef(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (isVisible) {
-      let start = 0;
-      const duration = 2000; // ms
-      const increment = numericValue / (duration / 30);
-
-      const timer = setInterval(() => {
-        start += increment;
-        if (start >= numericValue) {
-          setCount(numericValue);
-          clearInterval(timer);
-        } else {
-          setCount(Math.ceil(start));
-        }
-      }, 30);
-      return () => clearInterval(timer);
-    }
-  }, [isVisible, numericValue]);
-
-  return (
-    <span ref={elementRef}>
-      {count}
-      {suffix}
-    </span>
-  );
-};
 
 const About = () => {
   return (
@@ -67,7 +16,7 @@ const About = () => {
             <div className="hero-text">
               <h1 className="hero-title">
                 Pioneering <span className="text-accent">Sustainable Chemistry</span>
-                Since 2009
+                Since 2012
               </h1>
               <p className="hero-description">
                 We are a leading innovator in eco-friendly chemical solutions, committed to
@@ -133,38 +82,31 @@ const About = () => {
               <h2 className="section-title">Our Journey</h2>
               <div className="story-timeline">
                 <div className="timeline-item">
-                  <div className="timeline-year">2009</div>
-                  <div className="timeline-content">
-                    <h4>Foundation</h4>
-                    <p> SurfauxDyeChem was founded with a vision to revolutionize the chemical industry through sustainable innovation.</p>
-                  </div>
-                </div>
-                <div className="timeline-item">
                   <div className="timeline-year">2012</div>
                   <div className="timeline-content">
-                    <h4>First Breakthrough</h4>
-                    <p>Developed our first bio-based chemical process, reducing environmental impact by 70%.</p>
+                    <h4>Foundation</h4>
+                    <p>Started as a chemical distribution company.</p>
                   </div>
                 </div>
                 <div className="timeline-item">
-                  <div className="timeline-year">2015</div>
+                  <div className="timeline-year">2016</div>
                   <div className="timeline-content">
-                    <h4>Global Expansion</h4>
-                    <p>Opened international operations and established partnerships with leading companies worldwide.</p>
+                    <h4>Partnership & OBA Solutions</h4>
+                    <p>Joined with dikaffil chemicals and started providing solutions for customers who needed high quality OBA'S.</p>
                   </div>
                 </div>
                 <div className="timeline-item">
-                  <div className="timeline-year">2020</div>
+                  <div className="timeline-year">2019</div>
                   <div className="timeline-content">
-                    <h4>Circular Economy Focus</h4>
-                    <p>Launched our circular economy initiative, helping companies achieve zero waste to landfill.</p>
+                    <h4>Auxiliaries Expansion</h4>
+                    <p>Started providing auxiliaries which reduce consumption of peroxide.</p>
                   </div>
                 </div>
                 <div className="timeline-item">
-                  <div className="timeline-year">2024</div>
+                  <div className="timeline-year">2022</div>
                   <div className="timeline-content">
-                    <h4>Carbon Neutral Operations</h4>
-                    <p>Achieved carbon neutrality across all operations and launched our first carbon-negative products.</p>
+                    <h4>ERCA Partnership</h4>
+                    <p>Joined with ERCA providing advanced sustainable solutions.</p>
                   </div>
                 </div>
               </div>
@@ -220,24 +162,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="stats-section">
-        <div className="container">
-          <h2 className="section-title">Our Impact</h2>
-          <div className="stats-grid">
-            {companyStats.map((stat, index) => (
-              <div key={index} className="stat-item">
-                <span className="stat-icon">{stat.icon}</span>
-                <h3 className="stat-number">
-                  <AnimatedNumber number={stat.number} />
-                </h3>
-                <p className="stat-label">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Team Section */}
       <section className="team-section">
         <div className="container">
@@ -276,23 +200,38 @@ const About = () => {
           <div className="certifications-grid">
             <div className="cert-item">
               <FiAward className="cert-icon" />
-              <h3>ISO 14001</h3>
-              <p>Environmental Management Systems</p>
+              <h3>ISCC PLUS</h3>
+              <p>Sustainability Certification</p>
             </div>
             <div className="cert-item">
               <FiAward className="cert-icon" />
-              <h3>Green Chemistry Award</h3>
-              <p>Presidential Green Chemistry Challenge</p>
+              <h3>ZDHC Chemical Gateway</h3>
+              <p>Zero Discharge of Hazardous Chemicals</p>
             </div>
             <div className="cert-item">
               <FiAward className="cert-icon" />
-              <h3>B Corp Certified</h3>
-              <p>Verified Social and Environmental Performance</p>
+              <h3>Bluesign® Approved</h3>
+              <p>Sustainable Textile Production</p>
             </div>
             <div className="cert-item">
               <FiAward className="cert-icon" />
-              <h3>Carbon Neutral</h3>
-              <p>Carbon Trust Certified</p>
+              <h3>GOTS Approved</h3>
+              <p>Global Organic Textile Standard</p>
+            </div>
+            <div className="cert-item">
+              <FiAward className="cert-icon" />
+              <h3>GRS Certified</h3>
+              <p>Global Recycled Standard</p>
+            </div>
+            <div className="cert-item">
+              <FiAward className="cert-icon" />
+              <h3>RCS</h3>
+              <p>Recycled Claim Standard</p>
+            </div>
+            <div className="cert-item">
+              <FiAward className="cert-icon" />
+              <h3>Oeko-Tex Standard 100</h3>
+              <p>Tested for Harmful Substances</p>
             </div>
           </div>
         </div>

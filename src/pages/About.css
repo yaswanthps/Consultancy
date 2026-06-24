@@ -471,12 +471,15 @@
   max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 var(--container-padding);
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--spacing-xl);
 }
 
 .cert-item {
+  flex: 1 1 250px;
+  max-width: 320px;
   text-align: center;
   padding: var(--spacing-xl);
   background: var(--light-gray);

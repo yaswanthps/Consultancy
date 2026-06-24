@@ -29,18 +29,22 @@ const Contact = () => {
     setSubmitMessage('');
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+      const response = await fetch('https://formsubmit.co/ajax/yaswanthyas361@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          _subject: `New Contact Form Submission from ${formData.name}`,
+        }),
       });
 
       const data = await response.json();
 
-      if (data.success) {
-        setSubmitMessage('Thank you for your message! We\'ll get back to you within 24 hours.');
+      if (response.ok && data.success === "true") {
+        setSubmitMessage('Thank you for your message! We\'ll get back to you soon.');
         setFormData({
           name: '',
           email: '',
