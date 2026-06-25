@@ -260,7 +260,7 @@ export const teamMembers = [
     id: 1,
     name: "Kumar Narayanan",
     position: "Managing Director",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop",
+    image: "/images/kumar-narayanan.jpg",
     bio: "Visionary leader driving sustainable innovation and strategic growth.",
     expertise: ["Leadership", "Strategy", "Sustainable Development"]
   }
