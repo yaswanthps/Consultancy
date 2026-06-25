@@ -535,11 +535,39 @@
     align-items: center;
     text-align: center;
   }
+
+  .home-hero-highlights {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .carousel-wrapper {
+    padding: 0 10px;
+  }
+
+  .app-slide {
+    padding: 2rem 1.5rem;
+  }
+
+  .applications-title {
+    font-size: 1.6rem;
+  }
+
+  .home-cta-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .home-cta-card h2 {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
   .home-hero-title {
     font-size: 2rem;
+  }
+
+  .home-hero-highlights {
+    grid-template-columns: 1fr;
   }
 
   .home-cta-card {

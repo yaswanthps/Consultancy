@@ -608,6 +608,11 @@
     font-size: 2.5rem;
   }
 
+  .about-us-intro .section-description {
+    font-size: 1rem;
+    padding: 0 var(--spacing-sm);
+  }
+
   .story-content {
     text-align: left;
   }
@@ -638,14 +643,28 @@
     font-size: 2rem;
   }
 
+  .about-hero {
+    padding: var(--spacing-sm) 0 var(--spacing-lg);
+  }
+
   .mission-card,
   .vision-card {
     padding: var(--spacing-lg);
   }
 
+  .mission-card .card-title,
+  .vision-card .card-title {
+    font-size: 1.5rem;
+  }
+
   .value-item,
   .cert-item {
     padding: var(--spacing-lg);
+  }
+
+  .cert-item {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 
   .member-info {
@@ -654,5 +673,18 @@
 
   .about .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about .cta-title {
+    font-size: 1.75rem;
+  }
+
+  .about .cta-description {
+    font-size: 1rem;
+  }
+
+  .about .cta-actions {
+    flex-direction: column;
+    align-items: center;
   }
 }

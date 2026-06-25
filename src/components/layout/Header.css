@@ -141,4 +141,12 @@
     .nav-toggle {
         display: block;
     }
+
+    .nav-logo {
+        font-size: 1.1rem;
+    }
+
+    .logo-img {
+        max-height: 35px !important;
+    }
 }

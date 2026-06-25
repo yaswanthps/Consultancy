@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiSun, FiMail, FiPhone, FiMapPin, FiLinkedin, FiTwitter, FiFacebook } from 'react-icons/fi';
+import { FiSun, FiMail, FiPhone, FiMapPin, FiLinkedin } from 'react-icons/fi';
 import logo from '../../assets/logo.svg';
 import './Footer.css';
 
@@ -21,12 +21,6 @@ const Footer = () => {
           <div className="footer-social">
             <a href="https://www.linkedin.com/in/surfaux-dye-chem-188568371?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" className="social-link">
               <FiLinkedin />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="social-link">
-              <FiTwitter />
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-link">
-              <FiFacebook />
             </a>
           </div>
         </div>

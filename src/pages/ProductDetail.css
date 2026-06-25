@@ -629,6 +629,10 @@
         gap: 2rem;
     }
 
+    .content-grid.reverse {
+        direction: ltr;
+    }
+
     .product-title {
         font-size: 2.5rem;
     }
@@ -646,9 +650,46 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+    .product-hero {
+        height: auto;
+        min-height: 400px;
+    }
+
     .product-title {
         font-size: 2rem;
+    }
+
+    .product-subtitle {
+        font-size: 1rem;
+    }
+
+    .product-profile-card {
+        padding: 1.5rem;
+    }
+
+    .overview-section,
+    .chemicals-section,
+    .technical-section,
+    .applications-section,
+    .sustainability-section {
+        padding: 3rem 0;
+    }
+
+    .applications-content .section-header,
+    .sustainability-content .section-header {
+        text-align: center;
+    }
+
+    .applications-content .title-underline,
+    .sustainability-content .title-underline {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .product-title {
+        font-size: 1.75rem;
     }
 
     .section-title {
@@ -677,6 +718,20 @@
     .technical-section,
     .applications-section,
     .sustainability-section {
-        padding: 3rem 0;
+        padding: 2rem 0;
+    }
+
+    .back-button {
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .cta-title {
+        font-size: 1.75rem;
+    }
+
+    .cta-description {
+        font-size: 1rem;
     }
 }

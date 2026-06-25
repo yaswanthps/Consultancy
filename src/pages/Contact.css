@@ -7,7 +7,7 @@
 /* Contact Hero Section - Matching Services Page */
 .contact-hero {
   position: relative;
-  min-height: 110vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -401,6 +401,11 @@
 }
 
 @media (max-width: 768px) {
+  .contact-hero {
+    min-height: 70vh;
+    background-attachment: scroll;
+  }
+
   .contact-form-section {
     padding: var(--spacing-lg);
   }
@@ -412,9 +417,84 @@
 
   .company-contact-card {
     padding: var(--spacing-lg);
+    margin-left: var(--spacing-sm);
+    margin-right: var(--spacing-sm);
   }
 
   .contact-form-container {
     max-width: 100%;
+    padding: 0 var(--spacing-sm);
+  }
+
+  .contact-brand {
+    flex: 0 0 auto;
+  }
+
+  .contact-numbers {
+    flex: 0 0 auto;
+  }
+
+  .map-placeholder {
+    min-height: 300px;
+  }
+
+  .map-image {
+    height: 300px;
+  }
+
+  .map-overlay {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin: var(--spacing-md);
+    margin-top: calc(-1 * var(--spacing-xl));
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-hero {
+    min-height: 60vh;
+  }
+
+  .company-contact-card {
+    padding: var(--spacing-md);
+    margin-left: var(--spacing-xs);
+    margin-right: var(--spacing-xs);
+  }
+
+  .contact-address h3 {
+    font-size: 1.2rem;
+  }
+
+  .contact-address p {
+    font-size: 0.9rem;
+  }
+
+  .infinity-symbol {
+    font-size: 2rem;
+  }
+
+  .erca-text {
+    font-size: 1.8rem;
+  }
+
+  .contact-form-section {
+    padding: var(--spacing-md);
+  }
+
+  .map-section {
+    padding: var(--spacing-lg) 0;
+  }
+
+  .map-overlay {
+    padding: var(--spacing-md);
+  }
+
+  .map-info h3 {
+    font-size: 1rem;
+  }
+
+  .map-info p {
+    font-size: 0.85rem;
   }
 }
