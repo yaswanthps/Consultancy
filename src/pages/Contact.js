@@ -95,6 +95,7 @@ const Contact = () => {
                 <p>Chettipalayam (Angeripalayam),</p>
                 <p>Gandhi Nagar Post, Tirupur - 641603</p>
                 <p>Tamilnadu, India</p>
+                <a href="https://www.surfaux.com" target="_blank" rel="noreferrer" className="contact-link">www.surfaux.com</a>
               </div>
             </div>
 
