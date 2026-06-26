@@ -29,7 +29,7 @@ const Contact = () => {
     setSubmitMessage('');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/erca@surfauxdye.com', {
+      const response = await fetch('https://formsubmit.co/ajax/surfauxdyechem@gmail.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

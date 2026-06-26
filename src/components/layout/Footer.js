@@ -61,7 +61,7 @@ const Footer = () => {
             </div>
             <div className="contact-item">
               <FiMail className="contact-icon" />
-              <span>erca@surfauxdye.com</span>
+              <span>erca@surfaux.com</span>
             </div>
           </div>
         </div>
