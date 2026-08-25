@@ -214,14 +214,13 @@
 }
 
 /* Make slick slider cards equal height safely */
-.slick-track {
+.carousel-wrapper .slick-track {
   display: flex !important;
 }
-.slick-slide {
+.carousel-wrapper .slick-slide {
   height: auto !important;
-  display: flex !important;
 }
-.slick-slide > div {
+.carousel-wrapper .slick-slide > div {
   width: 100%;
   height: 100%;
 }
@@ -320,12 +319,12 @@
   margin: 0 auto;
 }
 
-.slick-prev:before, .slick-next:before {
+.carousel-wrapper .slick-prev:before, .carousel-wrapper .slick-next:before {
   color: var(--white) !important;
   font-size: 24px !important;
 }
 
-.slick-prev, .slick-next {
+.carousel-wrapper .slick-prev, .carousel-wrapper .slick-next {
     width: 32px !important;
     height: 32px !important;
     background: var(--white) !important;
@@ -336,14 +335,16 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 10;
 }
+.carousel-wrapper .slick-prev { left: -15px !important; }
+.carousel-wrapper .slick-next { right: -15px !important; }
 
-.slick-prev:before, .slick-next:before {
+.carousel-wrapper .slick-prev:before, .carousel-wrapper .slick-next:before {
     color: var(--primary-green) !important;
     font-size: 16px !important;
     font-family: inherit !important;
 }
-.slick-prev:before { content: '<' !important; }
-.slick-next:before { content: '>' !important; }
+.carousel-wrapper .slick-prev:before { content: '<' !important; }
+.carousel-wrapper .slick-next:before { content: '>' !important; }
 
 /* =============================================
    FEATURES SECTION
