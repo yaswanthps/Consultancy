@@ -226,15 +226,15 @@
 }
 
 .app-slide-wrapper {
-  padding: 20px;
-  height: 100%;
+  padding: 12px 10px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .app-slide {
   text-align: center;
   padding: 3rem 2rem;
-  display: flex !important;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -245,8 +245,8 @@
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
   position: relative;
   overflow: hidden;
-  height: 100%;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .app-slide:hover {
@@ -541,12 +541,55 @@
     grid-template-columns: 1fr 1fr;
   }
 
+  /* ── Applications slider mobile fix ── */
   .carousel-wrapper {
-    padding: 0 10px;
+    padding: 0 5px;
+    overflow: hidden;
+  }
+
+  /* Force slick to give each slide its full width on mobile */
+  .carousel-wrapper .slick-list {
+    overflow: hidden !important;
+  }
+
+  .carousel-wrapper .slick-slide {
+    width: 100% !important;
+  }
+
+  .carousel-wrapper .slick-slide > div {
+    width: 100% !important;
+  }
+
+  .app-slide-wrapper {
+    padding: 10px 8px;
+    width: 100% !important;
+    box-sizing: border-box;
   }
 
   .app-slide {
     padding: 2rem 1.5rem;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  /* Show dots, hide arrows on mobile */
+  .carousel-wrapper .slick-prev,
+  .carousel-wrapper .slick-next {
+    display: none !important;
+  }
+
+  .carousel-wrapper .slick-dots {
+    display: flex !important;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px 0 0;
+    list-style: none;
+    margin: 0;
+  }
+
+  .carousel-wrapper .slick-dots li button:before {
+    color: var(--primary-green) !important;
+    font-size: 10px !important;
   }
 
   .applications-title {

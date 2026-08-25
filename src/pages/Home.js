@@ -87,7 +87,7 @@ const Home = () => {
   ];
 
   const sliderSettings = {
-    dots: false,
+    dots: true,
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
@@ -99,15 +99,11 @@ const Home = () => {
     responsive: [
       {
         breakpoint: 1024,
-        settings: { slidesToShow: 3 }
+        settings: { slidesToShow: 2, autoplay: false, speed: 500, autoplaySpeed: 3000, cssEase: 'ease' }
       },
       {
-        breakpoint: 850,
-        settings: { slidesToShow: 2 }
-      },
-      {
-        breakpoint: 600,
-        settings: { slidesToShow: 1 }
+        breakpoint: 768,
+        settings: { slidesToShow: 1, slidesToScroll: 1, autoplay: false, speed: 500, autoplaySpeed: 3000, cssEase: 'ease', centerMode: false, dots: true }
       }
     ]
   };
