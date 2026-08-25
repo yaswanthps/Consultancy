@@ -2,18 +2,50 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiSun, FiTarget, FiAward, FiUsers, FiGlobe } from 'react-icons/fi';
 import { teamMembers } from '../data/mockData';
+import { motion } from 'framer-motion';
 import './About.css';
 
+/* ─── Reusable animation variants ─── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+};
 
+const fadeLeft = {
+  hidden: { opacity: 0, x: -70 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 70 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.82 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.14 } }
+};
+
+const vp = { once: true, amount: 0.25 };
 
 const About = () => {
   return (
     <div className="about">
-      {/* Hero Section */}
+      {/* Hero Section — fade left text, scale-in image */}
       <section className="about-hero">
         <div className="container">
           <div className="hero-content">
-            <div className="hero-text">
+            <motion.div
+              className="hero-text"
+              variants={fadeLeft}
+              initial="hidden"
+              animate="visible"
+            >
               <h1 className="hero-title">
                 Pioneering <span className="text-accent">Sustainable Chemistry</span>
                 Since 2012
@@ -22,19 +54,30 @@ const About = () => {
                 We are a leading innovator in eco-friendly chemical solutions, committed to
                 revolutionizing industrial processes while protecting our planet for future generations.
               </p>
-            </div>
-            <div className="hero-image">
+            </motion.div>
+            <motion.div
+              className="hero-image"
+              variants={fadeRight}
+              initial="hidden"
+              animate="visible"
+            >
               <img
                 src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=800&h=600&fit=crop"
                 alt="Our Research Laboratory"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* About Us Intro */}
-      <section className="about-us-intro">
+      {/* About Us Intro — fade-up */}
+      <motion.section
+        className="about-us-intro"
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={vp}
+      >
         <div className="container">
           <h2 className="section-title">About Us</h2>
           <p className="section-description">
@@ -46,13 +89,19 @@ const About = () => {
             regulatory and environmental standards.
           </p>
         </div>
-      </section>
+      </motion.section>
 
-      {/* Mission & Vision */}
+      {/* Mission & Vision — staggered slide-in from sides */}
       <section className="mission-vision">
         <div className="container">
-          <div className="mission-vision-grid">
-            <div className="mission-card">
+          <motion.div
+            className="mission-vision-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
+            <motion.div className="mission-card" variants={fadeLeft} whileHover={{ y: -8, scale: 1.02 }}>
               <FiTarget className="card-icon" />
               <h3 className="card-title">Our Mission</h3>
               <p className="card-description">
@@ -60,8 +109,8 @@ const About = () => {
                 to achieve their environmental goals without compromising performance or quality.
                 We believe that chemistry can be a force for good in creating a more sustainable world.
               </p>
-            </div>
-            <div className="vision-card">
+            </motion.div>
+            <motion.div className="vision-card" variants={fadeRight} whileHover={{ y: -8, scale: 1.02 }}>
               <FiSun className="card-icon" />
               <h3 className="card-title">Our Vision</h3>
               <p className="card-description">
@@ -69,111 +118,126 @@ const About = () => {
                 contributes to a circular economy and every product we create helps build a greener,
                 more sustainable future for all.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Company Story */}
+      {/* Company Story — image right, timeline left */}
       <section className="company-story">
         <div className="container">
           <div className="story-content">
-            <div className="story-text">
+            <motion.div
+              className="story-text"
+              variants={fadeLeft}
+              initial="hidden"
+              whileInView="visible"
+              viewport={vp}
+            >
               <h2 className="section-title">Our Journey</h2>
-              <div className="story-timeline">
-                <div className="timeline-item">
-                  <div className="timeline-year">2012</div>
-                  <div className="timeline-content">
-                    <h4>Foundation</h4>
-                    <p>Started as a chemical distribution company.</p>
-                  </div>
-                </div>
-                <div className="timeline-item">
-                  <div className="timeline-year">2016</div>
-                  <div className="timeline-content">
-                    <h4>Partnership & OBA Solutions</h4>
-                    <p>Joined with dikaffil chemicals and started providing solutions for customers who needed high quality OBA'S.</p>
-                  </div>
-                </div>
-                <div className="timeline-item">
-                  <div className="timeline-year">2019</div>
-                  <div className="timeline-content">
-                    <h4>Auxiliaries Expansion</h4>
-                    <p>Started providing auxiliaries which reduce consumption of peroxide.</p>
-                  </div>
-                </div>
-                <div className="timeline-item">
-                  <div className="timeline-year">2022</div>
-                  <div className="timeline-content">
-                    <h4>ERCA Partnership</h4>
-                    <p>Joined with ERCA providing advanced sustainable solutions.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="story-image">
+              <motion.div
+                className="story-timeline"
+                variants={staggerContainer}
+                initial="hidden"
+                whileInView="visible"
+                viewport={vp}
+              >
+                {[
+                  { year: '2012', title: 'Foundation', text: 'Started as a chemical distribution company.' },
+                  { year: '2016', title: 'Partnership & OBA Solutions', text: "Joined with dikaffil chemicals and started providing solutions for customers who needed high quality OBA'S." },
+                  { year: '2019', title: 'Auxiliaries Expansion', text: 'Started providing auxiliaries which reduce consumption of peroxide.' },
+                  { year: '2022', title: 'ERCA Partnership', text: 'Joined with ERCA providing advanced sustainable solutions.' },
+                ].map((item) => (
+                  <motion.div key={item.year} className="timeline-item" variants={fadeUp}>
+                    <div className="timeline-year">{item.year}</div>
+                    <div className="timeline-content">
+                      <h4>{item.title}</h4>
+                      <p>{item.text}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </motion.div>
+            <motion.div
+              className="story-image"
+              variants={scaleIn}
+              initial="hidden"
+              whileInView="visible"
+              viewport={vp}
+            >
               <img
                 src="https://images.unsplash.com/photo-1542744095-291d1f67b221?w=600&h=400&fit=crop"
                 alt="Our Chemical Manufacturing Facility"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Values Section */}
+      {/* Values Section — staggered grid */}
       <section className="values-section">
         <div className="container">
-          <h2 className="section-title">Our Core Values</h2>
-          <div className="values-grid">
-            <div className="value-item">
-              <div className="value-icon">🌱</div>
-              <h3 className="value-title">Sustainability First</h3>
-              <p className="value-description">
-                Every decision we make is guided by its environmental impact,
-                ensuring a sustainable future for generations to come.
-              </p>
-            </div>
-            <div className="value-item">
-              <div className="value-icon">🔬</div>
-              <h3 className="value-title">Innovation Excellence</h3>
-              <p className="value-description">
-                We continuously push the boundaries of what's possible in
-                green chemistry through cutting-edge research and development.
-              </p>
-            </div>
-            <div className="value-item">
-              <div className="value-icon">🤝</div>
-              <h3 className="value-title">Collaborative Partnership</h3>
-              <p className="value-description">
-                We work closely with our clients as partners, understanding
-                their unique needs and co-creating tailored solutions.
-              </p>
-            </div>
-            <div className="value-item">
-              <div className="value-icon">🌍</div>
-              <h3 className="value-title">Global Responsibility</h3>
-              <p className="value-description">
-                We take responsibility for our impact on the planet and
-                actively work to create positive change in communities worldwide.
-              </p>
-            </div>
-          </div>
+          <motion.h2
+            className="section-title"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
+            Our Core Values
+          </motion.h2>
+          <motion.div
+            className="values-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
+            {[
+              { icon: '🌱', title: 'Sustainability First', desc: 'Every decision we make is guided by its environmental impact, ensuring a sustainable future for generations to come.' },
+              { icon: '🔬', title: 'Innovation Excellence', desc: "We continuously push the boundaries of what's possible in green chemistry through cutting-edge research and development." },
+              { icon: '🤝', title: 'Collaborative Partnership', desc: 'We work closely with our clients as partners, understanding their unique needs and co-creating tailored solutions.' },
+              { icon: '🌍', title: 'Global Responsibility', desc: 'We take responsibility for our impact on the planet and actively work to create positive change in communities worldwide.' },
+            ].map((v, i) => (
+              <motion.div key={i} className="value-item" variants={fadeUp} whileHover={{ y: -8, scale: 1.03 }}>
+                <div className="value-icon">{v.icon}</div>
+                <h3 className="value-title">{v.title}</h3>
+                <p className="value-description">{v.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* Team Section — staggered fade-up cards */}
       <section className="team-section">
         <div className="container">
-          <div className="section-header">
+          <motion.div
+            className="section-header"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
             <h2 className="section-title">Leadership</h2>
             <p className="section-description">
               Guided by visionary leadership to drive innovation in sustainable chemistry
             </p>
-          </div>
-          <div className="team-grid">
+          </motion.div>
+          <motion.div
+            className="team-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
             {teamMembers.slice(0, 3).map((member) => (
-              <div key={member.id} className="team-card">
+              <motion.div
+                key={member.id}
+                className="team-card"
+                variants={fadeUp}
+                whileHover={{ y: -10, boxShadow: '0 25px 55px rgba(11,47,59,0.18)' }}
+              >
                 <div className="member-image">
                   <img src={member.image} alt={member.name} />
                 </div>
@@ -187,60 +251,60 @@ const About = () => {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Certifications */}
+      {/* Certifications — staggered scale-in */}
       <section className="certifications-section">
         <div className="container">
-          <h2 className="section-title">Certifications & Awards</h2>
-          <div className="certifications-grid">
-            <div className="cert-item">
-              <FiAward className="cert-icon" />
-              <h3>ISCC PLUS</h3>
-              <p>Sustainability Certification</p>
-            </div>
-            <div className="cert-item">
-              <FiAward className="cert-icon" />
-              <h3>ZDHC Chemical Gateway</h3>
-              <p>Zero Discharge of Hazardous Chemicals</p>
-            </div>
-            <div className="cert-item">
-              <FiAward className="cert-icon" />
-              <h3>Bluesign® Approved</h3>
-              <p>Sustainable Textile Production</p>
-            </div>
-            <div className="cert-item">
-              <FiAward className="cert-icon" />
-              <h3>GOTS Approved</h3>
-              <p>Global Organic Textile Standard</p>
-            </div>
-            <div className="cert-item">
-              <FiAward className="cert-icon" />
-              <h3>GRS Certified</h3>
-              <p>Global Recycled Standard</p>
-            </div>
-            <div className="cert-item">
-              <FiAward className="cert-icon" />
-              <h3>RCS</h3>
-              <p>Recycled Claim Standard</p>
-            </div>
-            <div className="cert-item">
-              <FiAward className="cert-icon" />
-              <h3>Oeko-Tex Standard 100</h3>
-              <p>Tested for Harmful Substances</p>
-            </div>
-          </div>
+          <motion.h2
+            className="section-title"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
+            Certifications & Awards
+          </motion.h2>
+          <motion.div
+            className="certifications-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
+            {[
+              { title: 'ISCC PLUS', sub: 'Sustainability Certification' },
+              { title: 'ZDHC Chemical Gateway', sub: 'Zero Discharge of Hazardous Chemicals' },
+              { title: 'Bluesign® Approved', sub: 'Sustainable Textile Production' },
+              { title: 'GOTS Approved', sub: 'Global Organic Textile Standard' },
+              { title: 'GRS Certified', sub: 'Global Recycled Standard' },
+              { title: 'RCS', sub: 'Recycled Claim Standard' },
+              { title: 'Oeko-Tex Standard 100', sub: 'Tested for Harmful Substances' },
+            ].map((cert, i) => (
+              <motion.div key={i} className="cert-item" variants={scaleIn} whileHover={{ scale: 1.08 }}>
+                <FiAward className="cert-icon" />
+                <h3>{cert.title}</h3>
+                <p>{cert.sub}</p>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section — scale-in */}
       <section className="cta-section">
         <div className="container">
-          <div className="cta-content">
+          <motion.div
+            className="cta-content"
+            variants={scaleIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+          >
             <h2 className="cta-title">Join Our Mission</h2>
             <p className="cta-description">
               Partner with us to create sustainable solutions that make a real difference
@@ -254,7 +318,7 @@ const About = () => {
                 Our Products
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

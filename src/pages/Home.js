@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FiArrowRight, FiShield, FiGlobe, FiDroplet, FiCpu } from 'react-icons/fi';
 import Slider from 'react-slick';
+import { motion } from 'framer-motion';
 import './Home.css';
+
+/* ─── Reusable animation variants ─── */
+const fadeUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const fadeLeft = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const fadeRight = {
+  hidden: { opacity: 0, x: 60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.15 } }
+};
 
 const Home = () => {
   const features = [
@@ -85,44 +112,61 @@ const Home = () => {
     ]
   };
 
-
-
   return (
     <div className="home">
+      {/* Hero Section — fade-up entrance */}
       <section className="home-hero">
         <div className="home-hero-content">
-          <div className="home-hero-left">
-
-            <span className="home-hero-eyebrow">BRIDGING MANUFACTURERS. DELIVERING SUSTAINABLE CHEMISTRY.</span>
-            <h1 className="home-hero-title">
+          <motion.div
+            className="home-hero-left"
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.span className="home-hero-eyebrow" variants={fadeUp}>
+              BRIDGING MANUFACTURERS. DELIVERING SUSTAINABLE CHEMISTRY.
+            </motion.span>
+            <motion.h1 className="home-hero-title" variants={fadeUp}>
               Connecting businesses with advanced Chemistry for a
               <span className="home-hero-highlight"> Sustainable Future</span>
-            </h1>
-            <p className="home-hero-subtitle">
+            </motion.h1>
+            <motion.p className="home-hero-subtitle" variants={fadeUp}>
               Trusted by customers for reliable and sustainable chemical solutions for a better productivity and profitability.
-            </p>
-            <p className="home-hero-description">
+            </motion.p>
+            <motion.p className="home-hero-description" variants={fadeUp}>
               We deliver advanced chemical manufacturing with a focus on compliance, operational excellence, and eco-conscious performance.
-            </p>
-            <div className="home-hero-buttons">
+            </motion.p>
+            <motion.div className="home-hero-buttons" variants={fadeUp}>
               <Link to="/products" className="home-btn home-btn-primary">
                 Explore Our Products <FiArrowRight />
               </Link>
               <Link to="/contact" className="home-btn home-btn-secondary">
                 Contact Us
               </Link>
-
-
-
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
+      {/* Applications Section — fade-up title + slider */}
       <section className="home-applications">
         <div className="container">
-          <h2 className="applications-title">APPLICATIONS</h2>
-          <div className="carousel-wrapper">
+          <motion.h2
+            className="applications-title"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
+            APPLICATIONS
+          </motion.h2>
+          <motion.div
+            className="carousel-wrapper"
+            variants={scaleIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <Slider {...sliderSettings}>
               {applicationsData.map(app => (
                 <div key={app.id} className="app-slide-wrapper">
@@ -134,34 +178,59 @@ const Home = () => {
                 </div>
               ))}
             </Slider>
-          </div>
+          </motion.div>
         </div>
       </section>
 
+      {/* Features Section — staggered card reveals */}
       <section className="home-features">
         <div className="container">
-          <div className="home-section-header">
-
+          <motion.div
+            className="home-section-header"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
             <h2 className="section-title">Enterprise-ready chemistry for modern industry</h2>
             <p className="section-description">
               A premium, compliance-driven partner delivering performance, transparency, and sustainability.
             </p>
-          </div>
-          <div className="features-grid">
-            {features.map((feature) => (
-              <div key={feature.id} className="feature-card">
+          </motion.div>
+
+          <motion.div
+            className="features-grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.id}
+                className="feature-card"
+                variants={index % 2 === 0 ? fadeLeft : fadeRight}
+                whileHover={{ y: -8, boxShadow: '0 20px 50px rgba(11, 47, 59, 0.15)' }}
+              >
                 <div className="feature-icon">{feature.icon}</div>
                 <h3 className="feature-title">{feature.title}</h3>
                 <p className="feature-description">{feature.description}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
+      {/* CTA Section — scale-in with bounce */}
       <section className="home-cta">
         <div className="container">
-          <div className="home-cta-card">
+          <motion.div
+            className="home-cta-card"
+            variants={scaleIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
             <div>
               <h2>Ready to scale sustainable chemistry?</h2>
               <p>
@@ -176,7 +245,7 @@ const Home = () => {
                 Learn About Us
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>
